@@ -12,11 +12,10 @@ namespace BlueprintMediaServis.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Magazine
+    public partial class Catalog
     {
         public int id { get; set; }
         public Nullable<System.DateTime> createTime { get; set; }
-        public Nullable<System.DateTime> updateTime { get; set; }
         public string pdfName { get; set; }
         public string imageName { get; set; }
         public string title { get; set; }

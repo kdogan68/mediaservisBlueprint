@@ -13,10 +13,10 @@ namespace BlueprintMediaServis.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BlueprintMediaServisEntities1 : DbContext
+    public partial class BlueprintMediaServisEntity : DbContext
     {
-        public BlueprintMediaServisEntities1()
-            : base("name=BlueprintMediaServisEntities1")
+        public BlueprintMediaServisEntity()
+            : base("name=BlueprintMediaServisEntity")
         {
         }
     
@@ -25,6 +25,9 @@ namespace BlueprintMediaServis.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Magazine> Magazines { get; set; }
+        public virtual DbSet<Catalog> Catalog { get; set; }
+        public virtual DbSet<Magazines> Magazines { get; set; }
+        public virtual DbSet<Video> Video { get; set; }
+        public virtual DbSet<Menu> Menu { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿
-@model BlueprintMediaServis.Models.Magazine
+@model Tuple < BlueprintMediaServis.Models.Magazines, IEnumerable < BlueprintMediaServis.Models.Magazines>>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!--<link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">-->
+<link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
 
 <script type="text/javascript">
 
@@ -23,69 +23,94 @@
 <h2>Index</h2>
 
 <li><a href="#addMagazinePopup" data-toggle="modal">@BlueprintMediaServis.Resource.Language.addMagazine</a></li>
+  <table>
 
-<!-- dergi ekleme popup -->
-@using (Html.BeginForm("Insert", "Magazine", FormMethod.Post,new {enctype="multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+      @foreach (var item in Model.Item2)
+         {
+         <tr>
+             <td>
 
-    <div class="modal fade" id="addMagazinePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">@BlueprintMediaServis.Resource.Language.addMagazine</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+                 <li>@Html.ActionLink(item.title + ".", "DisplayPDF", "Magazine", new { id = item.id }, null)</li>
+                 <li>@Html.ActionLink("DUZENLE", "RetrieveSingle", "Magazine", new { id = item.id },null)</li>
+                 <li>@Html.ActionLink("SİL", "Delete", "Magazine", new { id = item.id }, null)</li>
 
-                    @Html.ValidationSummary(true,"",new { @class="text-danger"})
-                    <div class="form-group">
-                        <!--    <input type="file" id="p" name="filepath" class="file">
-            <div class="input-group col-xs-12">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-               Html.TextBoxFor(model => model.pdfName, htmlAttributes: new { class="form-control input lg"} )
-
-                <span class="input-group-btn">
-                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                </span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <input type="file" id="i" name="imagepath" class="file">
-            <div class="input-group col-xs-12">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-               Html.TextBoxFor(model => model.imageName, htmlAttributes: new { class = "form-control input lg" })
-                <span class="input-group-btn">
-                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                </span>
-            </div>-->
-
-                        <input type="file" id="pdf" name="pdf" /> pdf
-                        <input type="file" id="image" name="image" />image
+                 <li><a href="#updateMagazinePopup" data-toggle="modal">düzenle</a></li>
+                 <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="80" height="80" />
 
 
+             </td>
+            
+        </tr>
+        }
 
+</table>
+
+
+    <!-- dergi ekleme popup -->
+    @using (Html.BeginForm("Insert", "Magazine", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="modal fade" id="addMagazinePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">@BlueprintMediaServis.Resource.Language.addMagazine</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                            @Html.TextBoxFor(model => model.title, htmlAttributes: new { @class = "form-control input lg" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+
+                            <div class="input-group col-xs-12">
+                                <input type="file" id="pdf" name="pdf" class="file">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                              @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
+
+                                <span class="input-group-btn">
+                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                            </div>
                         </div>
+
+                        <div class="form-group">
+                            <input type="file" id="image" name="image" class="file">
+                            <div class="input-group col-xs-12">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                @Html.TextBoxFor(Model => Model.Item1.imageName, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName" })
+                                <span class="input-group-btn">
+                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                            </div>
+
+                            <!--  <input type="file" id="pdf" name="pdf" /> pdf
+                              <input type="file" id="image" name="image" />image-->
+
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="input-group col-xs-12">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                               @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
 
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
-                    <button type="submit" class="btn btn-primary">@BlueprintMediaServis.Resource.Language.save</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
+                        <button type="submit" class="btn btn-primary">@BlueprintMediaServis.Resource.Language.save</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+
+   

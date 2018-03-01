@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlueprintMediaServisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Catalog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="createTime" Type="datetime" />
+    <Property Name="pdfName" Type="varchar" MaxLength="255" />
+    <Property Name="imageName" Type="varchar" MaxLength="255" />
+    <Property Name="title" Type="varchar" MaxLength="255" />
+    <Property Name="pdfFile" Type="varbinary(max)" />
+    <Property Name="imageFile" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Magazines">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="createTime" Type="datetime" />
+    <Property Name="updateTime" Type="datetime" />
+    <Property Name="pdfName" Type="varchar" MaxLength="255" />
+    <Property Name="imageName" Type="varchar" MaxLength="255" />
+    <Property Name="title" Type="varchar" MaxLength="255" />
+    <Property Name="pdfFile" Type="varbinary(max)" />
+    <Property Name="imageFile" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="createTime" Type="datetime" />
+    <Property Name="name" Type="varchar" MaxLength="255" />
+    <Property Name="content" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Video">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="createTime" Type="datetime" />
+    <Property Name="updateTime" Type="datetime" />
+    <Property Name="url" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityContainer Name="BlueprintMediaServisModelStoreContainer">
+    <EntitySet Name="Catalog" EntityType="Self.Catalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Magazines" EntityType="Self.Magazines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
