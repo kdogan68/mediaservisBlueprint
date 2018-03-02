@@ -180,6 +180,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MenuPageController.cs" />
+    <Compile Include="Controllers\PagesListController.cs" />
+    <Compile Include="Controllers\UpdateCatalogController.cs" />
+    <Compile Include="Controllers\UpdateMagazineController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -319,13 +323,17 @@
     <Content Include="Views\Language\Index.cshtml" />
     <Content Include="Views\Magazine\Index.cshtml" />
     <Content Include="Views\Video\Index.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\PagesList\Index.cshtml" />
     <Content Include="Views\Catalog\Index.cshtml" />
-    <Content Include="Views\Magazine\UpdateMagazine.cshtml" />
-    <Content Include="Views\Catalog\UpdateCatalog.cshtml" />
+    <Content Include="Views\UpdateMagazine\Index.cshtml" />
+    <Content Include="Views\UpdateCatalog\Index.cshtml" />
+    <Content Include="Views\MenuPage\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\" />
+    <Folder Include="pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

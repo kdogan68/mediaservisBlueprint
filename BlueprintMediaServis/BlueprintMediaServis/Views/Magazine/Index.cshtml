@@ -1,12 +1,11 @@
 ﻿
-@model Tuple < BlueprintMediaServis.Models.Magazines, IEnumerable < BlueprintMediaServis.Models.Magazines>>
+@model Tuple<BlueprintMediaServis.Models.Magazines, IEnumerable<BlueprintMediaServis.Models.Magazines>>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
 
 <script type="text/javascript">
 
@@ -20,30 +19,67 @@
 
 </script>
 
-<h2>Index</h2>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Pages - Admin Dashboard UI Kit - Blank Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+    <link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
 
-<li><a href="#addMagazinePopup" data-toggle="modal">@BlueprintMediaServis.Resource.Language.addMagazine</a></li>
-  <table>
+</head>
 
-      @foreach (var item in Model.Item2)
-         {
-         <tr>
-             <td>
+<body class="fixed-header">
+    <div class="page-container">
+        <div class="page-content-wrapper ">
+            <!-- START PAGE CONTENT -->
+            <div class="content ">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h2><a href="#addMagazinePopup" class="btn btn-primary" data-toggle="modal">@BlueprintMediaServis.Resource.Language.addMagazine</a></h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach (var item in Model.Item2)
+                            {
+                                <div class="col-md-3">
+                                    <h2>@Html.ActionLink(item.title + ".", "DisplayPDF", "Magazine", new { id = item.id }, null)</h2>
+                                    <h4>@Html.ActionLink("DUZENLE", "Index", "UpdateMagazine", new { id = item.id }, null)</h4>
+                                    <h4>@Html.ActionLink("SİL", "Delete", "Magazine", new { id = item.id }, null)</h4>
+                                    <p> <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="120" height="120" /></p>
+                                </div>
+                            }
+                        </div>
 
-                 <li>@Html.ActionLink(item.title + ".", "DisplayPDF", "Magazine", new { id = item.id }, null)</li>
-                 <li>@Html.ActionLink("DUZENLE", "RetrieveSingle", "Magazine", new { id = item.id },null)</li>
-                 <li>@Html.ActionLink("SİL", "Delete", "Magazine", new { id = item.id }, null)</li>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</body>
 
-                 <li><a href="#updateMagazinePopup" data-toggle="modal">düzenle</a></li>
-                 <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="80" height="80" />
 
 
-             </td>
-            
-        </tr>
-        }
 
-</table>
+
+
 
 
     <!-- dergi ekleme popup -->
@@ -63,13 +99,12 @@
                     <div class="modal-body">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
 
+                        <div class="form-group">
                             <div class="input-group col-xs-12">
                                 <input type="file" id="pdf" name="pdf" class="file">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                              @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
-
+                                @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
                                 <span class="input-group-btn">
                                     <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                 </span>
@@ -85,24 +120,16 @@
                                     <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                 </span>
                             </div>
-
-                            <!--  <input type="file" id="pdf" name="pdf" /> pdf
-                              <input type="file" id="image" name="image" />image-->
-
-
-
                         </div>
-
 
                         <div class="form-group">
                             <div class="input-group col-xs-12">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                               @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
+                                @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
                             </div>
                         </div>
 
                     </div>
-
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
@@ -113,4 +140,6 @@
         </div>
     }
 
-   
+
+
+

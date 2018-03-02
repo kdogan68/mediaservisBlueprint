@@ -36,8 +36,9 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="createTime" Type="datetime" />
-          <Property Name="name" Type="varchar" MaxLength="255" />
-          <Property Name="content" Type="varchar" MaxLength="255" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="content" Type="nvarchar(max)" />
+          <Property Name="language" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
@@ -104,8 +105,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="createTime" Type="DateTime" Precision="3" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="language" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -153,6 +155,7 @@
           <EntitySetMapping Name="Menu">
             <EntityTypeMapping TypeName="BlueprintMediaServisModel.Menu">
               <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="language" ColumnName="language" />
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="createTime" ColumnName="createTime" />

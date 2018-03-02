@@ -18,5 +18,6 @@ namespace BlueprintMediaServis.Models
         public Nullable<System.DateTime> createTime { get; set; }
         public string name { get; set; }
         public string content { get; set; }
+        public string language { get; set; }
     }
 }

@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
+
+
 
 <script type="text/javascript">
 
@@ -20,27 +20,62 @@
 
 </script>
 
-<h2>Index</h2>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Pages - Admin Dashboard UI Kit - Blank Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+    <link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
 
-<li><a href="#addCatalogPopup" data-toggle="modal">Katolog Düzenle</a></li>
+</head>
 
-<table>
+<body class="fixed-header">
+    <div class="page-container">
+        <div class="page-content-wrapper ">
+            <!-- START PAGE CONTENT -->
+            <div class="content ">
+                <div class="panel">
+                <div class="panel-heading">
+                    <h2><a href="#addCatalogPopup"  class="btn btn-primary" data-toggle="modal">Katolog Düzenle</a></h2>
+                </div>
+                <div class="panel-body">
+                <div class="row">
+                    @foreach (var item in Model.Item2)
+                    {
+                        <div class="col-md-3">
+                            <h2>@Html.ActionLink(item.title + ".", "DisplayPDF", "Catalog", new { id = item.id }, null)</h2>
+                            <h2>@Html.ActionLink("DUZENLE", "RetrieveSingle", "Catalog", new { id = item.id }, null)</h2>
+                            <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="80" height="80" />
+                        </div>
+                    }
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 
-    @foreach (var item in Model.Item2)
-    {
-        <tr>
-            <td><img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="80" height="80" /></td>
-            <td><li>@Html.ActionLink(item.title + ".", "DisplayPDF", "Catalog", new { id = item.id }, null)</li></td>
-            <td><li>@Html.ActionLink("DUZENLE", "RetrieveSingle", "Catalog", new { id = item.id }, null)</li></td>
 
-
-       </tr>
-    }
-
-      
-
-</table>
 
 
 
@@ -84,11 +119,6 @@
                             </span>
                         </div>
 
-                        <!--  <input type="file" id="pdf" name="pdf" /> pdf
-                          <input type="file" id="image" name="image" />image-->
-
-
-
                     </div>
 
 
@@ -110,4 +140,5 @@
         </div>
     </div>
 }
+
 

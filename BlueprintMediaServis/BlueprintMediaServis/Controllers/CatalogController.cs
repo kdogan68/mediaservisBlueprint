@@ -17,7 +17,6 @@ namespace BlueprintMediaServis.Controllers
             return View(Tuple.Create<Catalog, IEnumerable<Catalog>>(new Catalog(), BMSentity.Catalog.ToList()));
         }
     
-
         [HttpPost]
         public ActionResult Insert(Catalog catalogEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
         {
@@ -58,7 +57,6 @@ namespace BlueprintMediaServis.Controllers
                 catalogTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
             }
 
-
             catalogTheUpdate.imageName = catalogEntity.imageName;
             catalogTheUpdate.pdfName = catalogEntity.pdfName;
             catalogTheUpdate.title = catalogEntity.title;
@@ -66,10 +64,8 @@ namespace BlueprintMediaServis.Controllers
 
             entities.SaveChanges();
 
-
             return Redirect(Request.UrlReferrer.ToString());
         }
-
 
         public ActionResult RetrieveSingle(int id)
         {
@@ -85,8 +81,7 @@ namespace BlueprintMediaServis.Controllers
 
             return PartialView("UpdateCatalog", result[0]);
         }
-
-
+        
         public ActionResult DisplayPDF(int id)
         {
             var entity = new BlueprintMediaServisEntity();
@@ -100,9 +95,7 @@ namespace BlueprintMediaServis.Controllers
 
             return new FileStreamResult(pdfStream, "application/pdf");
         }
-
-
-
+        
         private Byte[] ConvertByte(string filePath, HttpPostedFileBase f)
         {
             string filename = Path.GetFileName(filePath);
@@ -137,7 +130,6 @@ namespace BlueprintMediaServis.Controllers
 
             return null;
         }
-
 
     }
 }

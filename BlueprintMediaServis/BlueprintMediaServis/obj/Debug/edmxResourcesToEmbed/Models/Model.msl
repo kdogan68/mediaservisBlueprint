@@ -41,6 +41,7 @@
     <EntitySetMapping Name="Menu">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Menu">
         <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="language" ColumnName="language" />
           <ScalarProperty Name="content" ColumnName="content" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />

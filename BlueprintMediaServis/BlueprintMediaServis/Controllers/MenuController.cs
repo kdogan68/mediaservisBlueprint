@@ -11,7 +11,10 @@ namespace BlueprintMediaServis.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+
+            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+               
+            return View(Tuple.Create<Menu, IEnumerable<Menu>>(new Menu(), BMSentity.Menu.ToList()));
         }
 
         [HttpPost]
@@ -28,16 +31,27 @@ namespace BlueprintMediaServis.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        public ActionResult About()
+        public ActionResult PagesList()
         {
-            ViewBag.Message = "Your application description page.";
+            
+
+
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult MenuPage(int id)
         {
-            ViewBag.Message = "Your contact page.";
+            var entity = new BlueprintMediaServisEntity();
+            var query = entity.Menu.ToList();
+            var result = query.Where(m => m.id == id).ToList();
+            //string str1 = result[0].content.Replace("\r\n", "<br/>");
+            
+
+            ViewData["name"] = result[0].name;
+            ViewData["content"] = result[0].content;
+
+
 
             return View();
         }
