@@ -8,11 +8,27 @@ using System.IO;
 
 namespace BlueprintMediaServis.Controllers
 {
+    class Language
+    {
+        public string id { get; set; }
+        public string text { get; set; }
+    }
     public class CatalogController : Controller
     {
+       
         public ActionResult Index()
         {
             BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+
+            List<Language> Languages = new List<Language>
+            {
+                new Language { id = "tr", text = "Türkçe" },
+                new Language { id = "en", text = "İngilizce" },
+                new Language { id = "ru", text = "Rusça" }
+            };
+
+            ViewBag.Languages = Languages;
+
             // BlueprintMediaServis.Models.Magazines      
             return View(Tuple.Create<Catalog, IEnumerable<Catalog>>(new Catalog(), BMSentity.Catalog.ToList()));
         }

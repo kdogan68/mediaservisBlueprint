@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Catalog">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Catalog">
         <MappingFragment StoreEntitySet="Catalog">
+          <ScalarProperty Name="language" ColumnName="language" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />
           <ScalarProperty Name="pdfName" ColumnName="pdfName" />

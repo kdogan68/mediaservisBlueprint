@@ -334,6 +334,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\" />
     <Folder Include="pages\" />
+    <Folder Include="Views\UpdateMagazine\Index\assets\" />
+    <Folder Include="Views\UpdateMagazine\Index\pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

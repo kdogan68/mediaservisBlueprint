@@ -39,36 +39,7 @@ namespace BlueprintMediaServis.Controllers
            return  Redirect(Request.UrlReferrer.ToString());
         }
 
-        [HttpPost]
-        public ActionResult Update(Magazines magazineEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
-        {
-            BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();          
-           
-            var magazineTheUpdate = entities.Magazines.Where(w => w.id == magazineEntity.id).FirstOrDefault();
-
-            if (image != null)
-            {
-                string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image.FileName));
-                magazineTheUpdate.imageFile = ConvertByte(imagePath, image);
-            }
-
-            if (pdf != null)
-            {
-                string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf.FileName));
-                magazineTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
-            }
-                         
-               
-            magazineTheUpdate.imageName = magazineEntity.imageName;
-            magazineTheUpdate.pdfName = magazineEntity.pdfName;
-            magazineTheUpdate.title = magazineEntity.title;
-            magazineTheUpdate.updateTime = DateTime.Now;             
-
-            entities.SaveChanges();
-            
-
-            return Redirect(Request.UrlReferrer.ToString());
-        }
+       
 
         public ActionResult Delete(int id)
         {

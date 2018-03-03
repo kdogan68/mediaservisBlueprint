@@ -21,5 +21,6 @@ namespace BlueprintMediaServis.Models
         public string title { get; set; }
         public byte[] pdfFile { get; set; }
         public byte[] imageFile { get; set; }
+        public string language { get; set; }
     }
 }

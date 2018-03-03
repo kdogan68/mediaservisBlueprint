@@ -11,6 +11,7 @@
     <Property Name="title" Type="varchar" MaxLength="255" />
     <Property Name="pdfFile" Type="varbinary(max)" />
     <Property Name="imageFile" Type="varbinary(max)" />
+    <Property Name="language" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Magazines">
     <Key>

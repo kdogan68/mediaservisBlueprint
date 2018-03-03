@@ -61,7 +61,8 @@
                             {
                                 <div class="col-md-3">
                                     <h2>@Html.ActionLink(item.title + ".", "DisplayPDF", "Magazine", new { id = item.id }, null)</h2>
-                                    <h4>@Html.ActionLink("DUZENLE", "Index", "UpdateMagazine", new { id = item.id }, null)</h4>
+
+                                    <h4>@Html.ActionLink("DUZENLE", "Display", "UpdateMagazine", new { id = item.id }, null)</h4>
                                     <h4>@Html.ActionLink("SİL", "Delete", "Magazine", new { id = item.id }, null)</h4>
                                     <p> <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="120" height="120" /></p>
                                 </div>

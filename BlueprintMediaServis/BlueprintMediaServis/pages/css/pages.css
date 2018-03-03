@@ -71,7 +71,7 @@ body {
   direction: ltr;
   -moz-osx-font-smoothing: grayscale;
 }
-.modal .modal-diaolog{margin:0!important;}
+
 body.fixed-header .header {
   position: fixed;
   left: 0;
@@ -5527,6 +5527,7 @@ body > .pgn-wrapper {
   }
   .modal .modal-dialog {
     width: 600px;
+    left:0!important;
   }
   .modal .modal-sm {
     width: 300px;
@@ -6609,7 +6610,7 @@ form legend {
   -webkit-appearance: none;
   color: #2c2c2c;
   outline: 0;
-  height: 35px;
+  height: 45px;
   padding: 9px 12px;
   line-height: normal;
   font-size: 14px;

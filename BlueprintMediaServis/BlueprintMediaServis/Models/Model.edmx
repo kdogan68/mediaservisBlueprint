@@ -16,6 +16,7 @@
           <Property Name="title" Type="varchar" MaxLength="255" />
           <Property Name="pdfFile" Type="varbinary(max)" />
           <Property Name="imageFile" Type="varbinary(max)" />
+          <Property Name="language" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Magazines">
           <Key>
@@ -70,6 +71,7 @@
           <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="pdfFile" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="imageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Magazines">
           <Key>
@@ -118,6 +120,7 @@
           <EntitySetMapping Name="Catalog">
             <EntityTypeMapping TypeName="BlueprintMediaServisModel.Catalog">
               <MappingFragment StoreEntitySet="Catalog">
+                <ScalarProperty Name="language" ColumnName="language" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="createTime" ColumnName="createTime" />
                 <ScalarProperty Name="pdfName" ColumnName="pdfName" />
