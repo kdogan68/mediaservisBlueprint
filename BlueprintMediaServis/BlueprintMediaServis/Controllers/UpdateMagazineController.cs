@@ -26,16 +26,23 @@ namespace BlueprintMediaServis.Controllers
 
         public ActionResult Index()
         {
-                BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
-                var query = entity.Magazines.ToList();
-                var result = query.Where(m => m.id == (int)Session["id"]).ToList();
+            BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
+            var query = entity.MagazinesContent.ToList();
+            var result = query.Where(m => m.id == (int)Session["id"]).ToList();
 
-                ViewData["ttle"] = result[0].title;
-                ViewData["imageName"] = result[0].imageName;
-                ViewData["pdfName"] = result[0].pdfName;
-              
+            ViewData["ttle_tr"] = result[0].title_tr;
+            ViewData["imageName_tr"] = result[0].imageName_tr;
+            ViewData["pdfName_tr"] = result[0].pdfName_tr;
+            ViewData["ttle_en"] = result[0].title_en;
+            ViewData["imageName_en"] = result[0].imageName_en;
+            ViewData["pdfName_en"] = result[0].pdfName_en;
+            ViewData["ttle_ru"] = result[0].title_ru;
+            ViewData["imageName_ru"] = result[0].imageName_ru;
+            ViewData["pdfName_ru"] = result[0].pdfName_ru;
 
-                return View(result[0]);
+
+
+            return View(result[0]);
             
 
         
@@ -43,29 +50,30 @@ namespace BlueprintMediaServis.Controllers
 
 
         [HttpPost]
-        public ActionResult Update(Magazines magazineEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
+        public ActionResult Update(Magazines magazineEntity,MagazinesContent magazineContentEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
         {
             BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
 
-            var magazineTheUpdate = entities.Magazines.Where(w => w.id == magazineEntity.id).FirstOrDefault();
+            var magazineContentTheUpdate = entities.MagazinesContent.Where(w => w.id == magazineContentEntity.id).FirstOrDefault();
 
             if (image != null)
             {
                 string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image.FileName));
-                magazineTheUpdate.imageFile = ConvertByte(imagePath, image);
+                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image);
             }
 
             if (pdf != null)
             {
                 string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf.FileName));
-                magazineTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
+                magazineContentTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
             }
 
 
-            magazineTheUpdate.imageName = magazineEntity.imageName;
-            magazineTheUpdate.pdfName = magazineEntity.pdfName;
-            magazineTheUpdate.title = magazineEntity.title;
-            magazineTheUpdate.updateTime = DateTime.Now;
+            magazineContentTheUpdate.imageName = magazineContentEntity.imageName;
+            magazineContentTheUpdate.pdfName = magazineContentEntity.pdfName;
+            magazineContentTheUpdate.title = magazineContentEntity.title;
+            magazineContentTheUpdate.language1 = magazineContentEntity.language1;
+            magazineContentTheUpdate.updateTime = DateTime.Now;
 
             entities.SaveChanges();
 

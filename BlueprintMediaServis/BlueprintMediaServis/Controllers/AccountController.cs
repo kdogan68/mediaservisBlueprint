@@ -66,29 +66,27 @@ namespace BlueprintMediaServis.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(User userEntity, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(userEntity);
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+            var result =BMSentity.User.FirstOrDefault(temp => temp.userName == userEntity.userName && temp.password == userEntity.password);
+            if (result != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                Session["userName"] = result;
+
+                return (RedirectToAction("Index2", "Home"));
             }
+
+            ModelState.AddModelError("", "Kullanıcı adı yada şifre yanlış.");
+            return View(userEntity);
+           
         }
 
         //

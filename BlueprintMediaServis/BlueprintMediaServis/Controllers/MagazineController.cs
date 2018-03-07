@@ -6,32 +6,48 @@ using System.Web.Mvc;
 using BlueprintMediaServis.Models;
 using System.IO;
 using System.Web.UI.WebControls;
+using System.Reflection;
 
 namespace BlueprintMediaServis.Controllers
 {
+
     public class MagazineController : Controller
-    {
-        public ActionResult Index()
-        {
+    {        
+        public ActionResult Index()        {
             
             BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
-           // BlueprintMediaServis.Models.Magazines      
-            return View(Tuple.Create<Magazines, IEnumerable<Magazines>>(new Magazines(), BMSentity.Magazines.ToList()));
+               
+            return View(Tuple.Create<Magazines, IEnumerable<Magazines>, MagazinesContent>(new Magazines(), BMSentity.Magazines.ToList(), new MagazinesContent()));
         }
 
         [HttpPost]
-        public ActionResult Insert(Magazines magazineEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
+        public ActionResult Insert(Magazines magazineEntity, MagazinesContent magazinesContentEntity, HttpPostedFileBase image_tr, HttpPostedFileBase image_en, HttpPostedFileBase image_ru, HttpPostedFileBase pdf_tr, HttpPostedFileBase pdf_en, HttpPostedFileBase pdf_ru)
         {
-            string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image.FileName));
-            string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf.FileName));
+            string imagePath_tr = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_tr.FileName));
+            string imagePath_en = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_en.FileName));
+            string imagePath_ru = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_ru.FileName));
+
+            string pdfPath_tr = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_tr.FileName));
+            string pdfPath_en = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_en.FileName));
+            string pdfPath_ru = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_ru.FileName));
+
+            magazineEntity = new Magazines();
 
             using (BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity())
             {
-                magazineEntity.imageFile = ConvertByte(imagePath, image);
-                magazineEntity.pdfFile = ConvertByte(pdfPath, pdf);
-                magazineEntity.updateTime = DateTime.Now;
-                magazineEntity.createTime = DateTime.Now;
-        
+
+                magazinesContentEntity.imageFile_tr = ConvertByte(imagePath_tr, image_tr);
+                magazinesContentEntity.imageFile_en = ConvertByte(imagePath_en, image_en);
+                magazinesContentEntity.imageFile_ru = ConvertByte(imagePath_ru, image_ru);
+
+                magazinesContentEntity.pdfFile_tr = ConvertByte(pdfPath_tr, pdf_tr);
+                magazinesContentEntity.pdfFile_en = ConvertByte(pdfPath_en, pdf_en);
+                magazinesContentEntity.pdfFile_ru = ConvertByte(pdfPath_ru, pdf_ru);
+                magazinesContentEntity.updateTime = DateTime.Now;
+                magazinesContentEntity.createTime = DateTime.Now;
+                magazinesContentEntity.Magazines = magazineEntity;
+
+                entities.MagazinesContent.Add(magazinesContentEntity);
                 entities.Magazines.Add(magazineEntity);
                 entities.SaveChanges();
             }
@@ -39,13 +55,15 @@ namespace BlueprintMediaServis.Controllers
            return  Redirect(Request.UrlReferrer.ToString());
         }
 
-       
 
         public ActionResult Delete(int id)
         {
             BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
-            Magazines magazine = entity.Magazines.Find(id);
+            MagazinesContent magazineContent = entity.MagazinesContent.Find(id);
+            Magazines magazine = entity.Magazines.Find(magazineContent.magazineId);
+            
             entity.Magazines.Remove(magazine);
+            entity.MagazinesContent.Remove(magazineContent);
             entity.SaveChanges();
             return RedirectToAction("Index");            
         }
@@ -56,9 +74,9 @@ namespace BlueprintMediaServis.Controllers
         public ActionResult DisplayPDF(int id)
         {
             var entity = new BlueprintMediaServisEntity();
-            var query = entity.Magazines.ToList();
+            var query = entity.MagazinesContent.ToList();
             var result = query.Where(m => m.id == id).ToList();
-            byte[] byteArray = result.Select(m => m.pdfFile).First();
+            byte[] byteArray = result.Select(m => m.pdfFile_tr).First();
             MemoryStream pdfStream = new MemoryStream();
 
             pdfStream.Write(byteArray, 0, byteArray.Length);

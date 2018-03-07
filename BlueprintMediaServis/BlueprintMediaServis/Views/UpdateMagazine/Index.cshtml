@@ -1,4 +1,4 @@
-﻿@model  BlueprintMediaServis.Models.Magazines
+﻿@model  BlueprintMediaServis.Models.MagazinesContent
 
 @{
     ViewBag.Title = "UpdateMagazine";
@@ -17,7 +17,16 @@
         $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 
+    function SetPageAttributes()
+    {        
+        var dropDownListValue = @Html.Raw(Json.Encode(ViewData["language"]));
+        
+        $("#languageSelect").val(dropDownListValue);
+    }
+    window.onload = SetPageAttributes;
 </script>
+
+
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -67,42 +76,120 @@
                         <div class="panel-body">
 
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
 
-                                <div class="input-group col-xs-12">
-                                    <input type="file" id="pdf" name="pdf" class="file">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                    @Html.TextBoxFor(model => Model.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName", @Value = ViewData["pdfName"] })
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1" data-toggle="tab">Türkçe</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_2" data-toggle="tab">İngilizce</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_3" data-toggle="tab">Rusça</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
 
-                                    <span class="input-group-btn">
-                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                    </span>
+                                <div class="tab-pane fade active" id="tab_1">
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <input type="file" id="pdf_tr" name="pdf_tr" class="file">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                            @Html.TextBoxFor(Model => Model.pdfName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_tr", @Value = ViewData["ttle_tr"] })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="file" id="image_tr" name="image_tr" class="file">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                            @Html.TextBoxFor(Model => Model.imageName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_tr" })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            @Html.TextBoxFor(Model => Model.title_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "title_tr" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="tab_2">
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <input type="file" id="pdf_en" name="pdf_en" class="file">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                            @Html.TextBoxFor(Model => Model.pdfName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_en" })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="file" id="image_en" name="image_en" class="file">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                            @Html.TextBoxFor(Model => Model.imageName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_en" })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            @Html.TextBoxFor(Model => Model.title_en, htmlAttributes: new { @class = "form-control input lg", @Name = "title_en" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="tab_3">
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <input type="file" id="pdf_ru" name="pdf_ru" class="file">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                            @Html.TextBoxFor(Model => Model.pdfName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_ru" })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="file" id="image_ru" name="image_ru" class="file">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                            @Html.TextBoxFor(Model => Model.imageName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_ru" })
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            @Html.TextBoxFor(Model => Model.title_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "title_ru" })
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <input type="file" id="image" name="image" class="file">
-                                <div class="input-group col-xs-12">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                    @Html.TextBoxFor(model => Model.imageName, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName", @Value = ViewData["imageName"] })
-                                    <span class="input-group-btn">
-                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                    </span>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="input-group col-xs-12">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    @Html.TextBoxFor(model => Model.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title", @Value = ViewData["ttle"] })
-                                </div>
-                            </div>
-
                         </div>
-
 
                         <div class="panel-footer">
                             @Html.ActionLink("Kapat", "Index", "Magazine",new object {},new {@class= "btn btn-secondary" })

@@ -11,20 +11,46 @@
     <Property Name="title" Type="varchar" MaxLength="255" />
     <Property Name="pdfFile" Type="varbinary(max)" />
     <Property Name="imageFile" Type="varbinary(max)" />
-    <Property Name="language" Type="varchar" MaxLength="50" />
+    <Property Name="language" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="text" Type="varchar" MaxLength="50" />
+    <Property Name="value" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Magazines">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="MagazinesContent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="magazineId" Type="int" Nullable="false" />
     <Property Name="createTime" Type="datetime" />
     <Property Name="updateTime" Type="datetime" />
-    <Property Name="pdfName" Type="varchar" MaxLength="255" />
-    <Property Name="imageName" Type="varchar" MaxLength="255" />
-    <Property Name="title" Type="varchar" MaxLength="255" />
-    <Property Name="pdfFile" Type="varbinary(max)" />
-    <Property Name="imageFile" Type="varbinary(max)" />
+    <Property Name="pdfName_tr" Type="varchar" MaxLength="255" />
+    <Property Name="imageName_tr" Type="varchar" MaxLength="255" />
+    <Property Name="title_tr" Type="varchar" MaxLength="255" />
+    <Property Name="pdfFile_tr" Type="varbinary(max)" Nullable="false" />
+    <Property Name="imageFile_tr" Type="varbinary(max)" />
+    <Property Name="imageName_en" Type="varchar" MaxLength="255" />
+    <Property Name="pdfName_en" Type="varchar" MaxLength="255" />
+    <Property Name="title_en" Type="varchar" MaxLength="255" />
+    <Property Name="pdfFile_en" Type="varbinary(max)" Nullable="false" />
+    <Property Name="imageFile_en" Type="varbinary(max)" />
+    <Property Name="imageName_ru" Type="varchar" MaxLength="255" />
+    <Property Name="pdfName_ru" Type="varchar" MaxLength="255" />
+    <Property Name="title_ru" Type="varchar" MaxLength="255" />
+    <Property Name="pdfFile_ru" Type="varbinary(max)" Nullable="false" />
+    <Property Name="imageFile_ru" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -36,6 +62,14 @@
     <Property Name="content" Type="nvarchar(max)" />
     <Property Name="language" Type="varchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="varchar" MaxLength="255" />
+    <Property Name="password" Type="varchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="Video">
     <Key>
       <PropertyRef Name="id" />
@@ -45,10 +79,29 @@
     <Property Name="updateTime" Type="datetime" />
     <Property Name="url" Type="varchar" MaxLength="255" />
   </EntityType>
+  <Association Name="FK_MagazinesContent_Magazines">
+    <End Role="Magazines" Type="Self.Magazines" Multiplicity="1" />
+    <End Role="MagazinesContent" Type="Self.MagazinesContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Magazines">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MagazinesContent">
+        <PropertyRef Name="magazineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="BlueprintMediaServisModelStoreContainer">
     <EntitySet Name="Catalog" EntityType="Self.Catalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Magazines" EntityType="Self.Magazines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MagazinesContent" EntityType="Self.MagazinesContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MagazinesContent_Magazines" Association="Self.FK_MagazinesContent_Magazines">
+      <End Role="Magazines" EntitySet="Magazines" />
+      <End Role="MagazinesContent" EntitySet="MagazinesContent" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

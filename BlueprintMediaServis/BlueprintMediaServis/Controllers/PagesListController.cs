@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlueprintMediaServis.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,11 @@ namespace BlueprintMediaServis.Controllers
         // GET: PagesList
         public ActionResult Index()
         {
-            return View();
+            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+            
+            var model = BMSentity.Menu;          
+
+            return View(model);           
         }
     }
 }

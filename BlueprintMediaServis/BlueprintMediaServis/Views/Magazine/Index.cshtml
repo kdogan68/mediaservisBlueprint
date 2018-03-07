@@ -1,5 +1,5 @@
 ﻿
-@model Tuple<BlueprintMediaServis.Models.Magazines, IEnumerable<BlueprintMediaServis.Models.Magazines>>
+@model Tuple<BlueprintMediaServis.Models.Magazines, IEnumerable<BlueprintMediaServis.Models.Magazines>, BlueprintMediaServis.Models.MagazinesContent>
 
 @{
     ViewBag.Title = "Index";
@@ -17,6 +17,9 @@
         $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 
+    $(document).ready(function () {
+        $('#tabs').tabs();
+    });
 </script>
 
 <head>
@@ -51,95 +54,207 @@
         <div class="page-content-wrapper ">
             <!-- START PAGE CONTENT -->
             <div class="content ">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h2><a href="#addMagazinePopup" class="btn btn-primary" data-toggle="modal">@BlueprintMediaServis.Resource.Language.addMagazine</a></h2>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            @foreach (var item in Model.Item2)
-                            {
-                                <div class="col-md-3">
-                                    <h2>@Html.ActionLink(item.title + ".", "DisplayPDF", "Magazine", new { id = item.id }, null)</h2>
 
-                                    <h4>@Html.ActionLink("DUZENLE", "Display", "UpdateMagazine", new { id = item.id }, null)</h4>
-                                    <h4>@Html.ActionLink("SİL", "Delete", "Magazine", new { id = item.id }, null)</h4>
-                                    <p> <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="120" height="120" /></p>
-                                </div>
-                            }
+                <div class="card card-transparent">
+                    <div class="card-header ">
+                        <div class="card-title">
+                            Dergiler                         
                         </div>
+                        <a href="#addMagazinePopup" class="btn btn-primary pull-right" data-toggle="modal">Dergi Ekle</a>
 
+                        <div class="tools">
+                            <a class="collapse" href="javascript:;"></a>
+                            <a class="config" data-toggle="modal" href="#grid-config"></a>
+                            <a class="reload" href="javascript:;"></a>
+                            <a class="remove" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed" id="condensedTable">
+                                <thead>
+                                    <tr>
+                                        <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
+                                            Comman Practice Followed
+                                            -->
+                                        <th style="width:30%">Id</th>
+                                        <th style="width:30%">Başlık</th>
+                                        <th style="width:40%">Eylemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.Item2)
+                                    {
+                                        <tr>
+                                            <td class="v-align-middle semi-bold">@item.id</td>
+
+                                            @foreach (var itemcont in item.MagazinesContent)
+                                            {
+                                                <td class="v-align-middle semi-bold">@itemcont.title_tr</td>
+                                            
+                                                <!--<td class="v-align-middle semi-bold">item.language1</td>
+                                                  <td class="v-align-middle"><img src="data:image;base64,System.Convert.ToBase64String(item.imageFile)" width="50" height="50" /></td>-->
+                                                <td class="v-align-middle semi-bold">
+                                                    @Html.ActionLink("AÇ", "DisplayPDF", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
+                                                    @Html.ActionLink("DUZENLE", "Display", "UpdateMagazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
+                                                    @Html.ActionLink("SİL", "Delete", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
+
+                                                </td>
+                                            }
+
+                                            </tr>
+                                            }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </body>
 
 
 
+<!-- dergi ekleme popup -->
+@using (Html.BeginForm("Insert", "Magazine", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
+    <div class="modal fade" id="addMagazinePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Dergi Ekle</h5>
 
+                </div>
+                <div class="modal-body">
 
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                  
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1" data-toggle="tab">Türkçe</a>
+                        </li>
+                        <li>
+                            <a href="#tab_2" data-toggle="tab">İngilizce</a>
+                        </li>
+                        <li>
+                            <a href="#tab_3" data-toggle="tab">Rusça</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
 
-
-    <!-- dergi ekleme popup -->
-    @using (Html.BeginForm("Insert", "Magazine", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="modal fade" id="addMagazinePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">@BlueprintMediaServis.Resource.Language.addMagazine</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            <div class="input-group col-xs-12">
-                                <input type="file" id="pdf" name="pdf" class="file">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
-                                <span class="input-group-btn">
-                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                </span>
+                        <div class="tab-pane fade active" id="tab_1">
+                           
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <input type="file" id="pdf_tr" name="pdf_tr" class="file">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.pdfName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_tr" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                <input type="file" id="image_tr" name="image_tr" class="file">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.imageName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_tr" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.title_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "title_tr" })
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="form-group">
-                            <input type="file" id="image" name="image" class="file">
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.imageName, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName" })
-                                <span class="input-group-btn">
-                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                </span>
+                        <div class="tab-pane fade" id="tab_2">
+                            
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <input type="file" id="pdf_en" name="pdf_en" class="file">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.pdfName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_en" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                <input type="file" id="image_en" name="image_en" class="file">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.imageName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_en" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.title_en, htmlAttributes: new { @class = "form-control input lg", @Name = "title_en" })
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
+                        <div class="tab-pane fade" id="tab_3">
+                            
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <input type="file" id="pdf_ru" name="pdf_ru" class="file">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.pdfName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_ru" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                <input type="file" id="image_ru" name="image_ru" class="file">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.imageName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_ru" })
+                                    <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Item3.title_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "title_ru" })
+                                </div>
+                            </div>
+
                         </div>
-
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
-                        <button type="submit" class="btn btn-primary">@BlueprintMediaServis.Resource.Language.save</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
+                    <button type="submit" class="btn btn-primary" name="btnSave">@BlueprintMediaServis.Resource.Language.save</button>
                 </div>
             </div>
         </div>
-    }
+    </div>
+}
 
 
 

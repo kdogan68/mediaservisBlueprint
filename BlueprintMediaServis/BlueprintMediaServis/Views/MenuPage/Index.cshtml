@@ -1,7 +1,27 @@
-﻿@{
+﻿@model Tuple<BlueprintMediaServis.Models.Menu, IEnumerable<BlueprintMediaServis.Models.Menu>>
+
+@{
     ViewBag.Title = "MenuPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript">
+
+    function SetPageAttributes()
+    {
+        var textBoxValue = @Html.Raw(Json.Encode(Model.Item2.First().name));
+        var dropDownListValue = @Html.Raw(Json.Encode(Model.Item2.First().language));
+        var textAreaValue = @Html.Raw(Json.Encode(Model.Item2.First().content));
+
+        $("#nameTextBox1").val(textBoxValue);
+        $("#languageDropDownList1").val(dropDownListValue);
+        $("#ContentTextBox2").val(textAreaValue);
+
+}
+    window.onload = SetPageAttributes;
+
+</script>
+
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -30,38 +50,69 @@
 
 </head>
 <body class="fixed-header">
-    <div class="page-container">
+    <div class="page-container container-fixed-lg">
         <div class="page-content-wrapper ">
             <!-- START PAGE CONTENT -->
             <div class="content ">
-
                 
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Menu</h5>
+                @using (Html.BeginForm("Update", "MenuPage", FormMethod.Post, new { enctype = "multipart/form-data", }))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model=>Model.Item2.First().id)
+                    <div class="card card-transparent">
+                        <div class="card-block">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default required">
+                                        <label>Başlık</label>
+                                        @Html.TextBoxFor(model => Model.Item1.name, htmlAttributes: new { @id = "nameTextBox1", @class = "form-control input lg", @Name = "name", })
 
-                            </div>
-                            <div class="panel-body">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default required">
+                                        <label>Dil</label>
+                                        @Html.DropDownListFor(Model => Model.Item1.language, new SelectList(new List<Object>{
+                                                                                      new { value = "Türkçe" , text = "Türkçe"  },
+                                                                                      new { value = "İngilizce"   , text = "İngilizce" },
+                                                                                      new { value = "Rusça" , text = "Rusça"}}, "value", "text", Model.Item1.language
+                                                                                      ), htmlAttributes: new { @class = "form-control input lg", @Name = "language", @id="languageDropDownList1" })
 
-                                <div class="form-group">
-                                    <div class="input-group col-xs-12">
-                                        <label>@ViewData["name"]</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="input-group col-xs-8">
-                                        <pre>@ViewData["content"]</pre>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-group-default input-group">
+                                        <div class="form-input-group">
+                                            <label>İçerik</label>
+                                            @Html.TextAreaFor(model => Model.Item1.content, htmlAttributes: new { @id = "ContentTextBox2", @class = "form-control input lg", @Name = "content", rows = "20", cols = "180" })
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel-footer">
-
                             </div>
                         </div>
                     </div>
-                </div>
-        </div></body>
+                    <div class="clearfix">
+                        @Html.ActionLink("Kapat", "Index", "PagesList", new object { }, new { @class = "btn btn-secondary" })
+                        <button type="submit" class="btn btn-primary">Güncelle</button>                        
+
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
 
 
 

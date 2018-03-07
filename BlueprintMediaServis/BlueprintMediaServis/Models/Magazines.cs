@@ -14,13 +14,16 @@ namespace BlueprintMediaServis.Models
     
     public partial class Magazines
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Magazines()
+        {
+            this.MagazinesContent = new HashSet<MagazinesContent>();
+        }
+    
         public int id { get; set; }
-        public Nullable<System.DateTime> createTime { get; set; }
-        public Nullable<System.DateTime> updateTime { get; set; }
-        public string pdfName { get; set; }
-        public string imageName { get; set; }
-        public string title { get; set; }
-        public byte[] pdfFile { get; set; }
-        public byte[] imageFile { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MagazinesContent> MagazinesContent { get; set; }
     }
 }

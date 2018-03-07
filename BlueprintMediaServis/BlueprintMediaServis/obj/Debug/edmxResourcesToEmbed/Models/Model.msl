@@ -18,14 +18,8 @@
     <EntitySetMapping Name="Magazines">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Magazines">
         <MappingFragment StoreEntitySet="Magazines">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="createTime" ColumnName="createTime" />
-          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
-          <ScalarProperty Name="pdfName" ColumnName="pdfName" />
-          <ScalarProperty Name="imageName" ColumnName="imageName" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="pdfFile" ColumnName="pdfFile" />
-          <ScalarProperty Name="imageFile" ColumnName="imageFile" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -46,6 +40,49 @@
           <ScalarProperty Name="content" ColumnName="content" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Languages">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.Languages">
+        <MappingFragment StoreEntitySet="Languages">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MagazinesContent">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.MagazinesContent">
+        <MappingFragment StoreEntitySet="MagazinesContent">
+          <ScalarProperty Name="imageFile_ru" ColumnName="imageFile_ru" />
+          <ScalarProperty Name="pdfFile_ru" ColumnName="pdfFile_ru" />
+          <ScalarProperty Name="title_ru" ColumnName="title_ru" />
+          <ScalarProperty Name="pdfName_ru" ColumnName="pdfName_ru" />
+          <ScalarProperty Name="imageName_ru" ColumnName="imageName_ru" />
+          <ScalarProperty Name="imageFile_en" ColumnName="imageFile_en" />
+          <ScalarProperty Name="pdfFile_en" ColumnName="pdfFile_en" />
+          <ScalarProperty Name="title_en" ColumnName="title_en" />
+          <ScalarProperty Name="pdfName_en" ColumnName="pdfName_en" />
+          <ScalarProperty Name="imageName_en" ColumnName="imageName_en" />
+          <ScalarProperty Name="imageFile_tr" ColumnName="imageFile_tr" />
+          <ScalarProperty Name="pdfFile_tr" ColumnName="pdfFile_tr" />
+          <ScalarProperty Name="title_tr" ColumnName="title_tr" />
+          <ScalarProperty Name="imageName_tr" ColumnName="imageName_tr" />
+          <ScalarProperty Name="pdfName_tr" ColumnName="pdfName_tr" />
+          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="magazineId" ColumnName="magazineId" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

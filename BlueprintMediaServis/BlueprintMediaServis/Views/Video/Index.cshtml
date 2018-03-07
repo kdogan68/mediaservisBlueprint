@@ -48,15 +48,50 @@
     <div class="page-container">
         <div class="page-content-wrapper ">
             <!-- START PAGE CONTENT -->
-            <div class="content ">
-                <div class="panel-body">
 
-                <iframe src="@ViewData["embedcode"]" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            <div class="content ">
+                <div class="card card-transparent">
+                    <div class="card-header ">
+                        <div class="card-title">
+                            VİDEO
+                        </div>
+                     
+
+                        <div class="tools">
+                            <a class="collapse" href="javascript:;"></a>
+                            <a class="config" data-toggle="modal" href="#grid-config"></a>
+                            <a class="reload" href="javascript:;"></a>
+                            <a class="remove" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed" id="condensedTable">
+                                <thead>
+                                    <tr>
+                                        <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
+                                Comman Practice Followed
+                                -->
+                                        <th style="width:30%"></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                        <tr>
+                                            <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode"]" width="560" height="315" frameborder="0" allowfullscreen></iframe></td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td class="v-align-middle semi-bold text-center"><a href="#addVideoPopup" class="btn btn-primary " data-toggle="modal">Yeni Video Ekle</a></td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-footer"
-                <h2><a href="#addVideoPopup" class="btn btn-primary" data-toggle="modal">yeni video ekle</a></h2>
-                </div>
-            </div>
+            </div>           
         </div>
     </div>
 </body>
@@ -71,10 +106,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">@BlueprintMediaServis.Resource.Language.addMagazine</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Url Giriniz</h5>                   
                 </div>
                 <div class="modal-body">
 
@@ -84,6 +116,7 @@
 
                     <div class="form-group">
                         <div class="input-group col-xs-12">
+
                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                             @Html.TextBoxFor(model => Model.url, htmlAttributes: new { @class = "form-control input lg", @Name = "url" })
                         </div>

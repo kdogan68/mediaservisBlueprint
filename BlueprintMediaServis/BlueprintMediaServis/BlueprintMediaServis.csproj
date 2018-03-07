@@ -199,7 +199,13 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Languages.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Magazines.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MagazinesContent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -220,6 +226,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Video.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -334,6 +343,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\" />
     <Folder Include="pages\" />
+    <Folder Include="Views\LanguageModel\" />
     <Folder Include="Views\UpdateMagazine\Index\assets\" />
     <Folder Include="Views\UpdateMagazine\Index\pages\" />
   </ItemGroup>

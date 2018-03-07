@@ -18,6 +18,13 @@
         $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 
+
+    function alertm(data) {
+        var textbox = document.getElementById('hgg');
+        textbox.value = data
+    }
+
+
 </script>
 
 <head>
@@ -52,21 +59,51 @@
         <div class="page-content-wrapper ">
             <!-- START PAGE CONTENT -->
             <div class="content ">
-                <div class="panel">
-                <div class="panel-heading">
-                    <h2><a href="#addCatalogPopup"  class="btn btn-primary" data-toggle="modal">Katolog Düzenle</a></h2>
-                </div>
-                <div class="panel-body">
-                <div class="row">
-                    @foreach (var item in Model.Item2)
-                    {
-                        <div class="col-md-3">
-                            <h2>@Html.ActionLink(item.title + ".", "DisplayPDF", "Catalog", new { id = item.id }, null)</h2>
-                            <h2>@Html.ActionLink("DUZENLE", "RetrieveSingle", "Catalog", new { id = item.id }, null)</h2>
-                            <img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="80" height="80" />
+                <div class="card card-transparent">
+                    <div class="card-header ">
+                        <div class="card-title">
+                            KATALOGLAR
                         </div>
-                    }
-                </div>
+                        <a href="#addCatalogPopup" class="btn btn-primary pull-right" data-toggle="modal">Katolog Düzenle</a>
+
+                        <div class="tools">
+                            <a class="collapse" href="javascript:;"></a>
+                            <a class="config" data-toggle="modal" href="#grid-config"></a>
+                            <a class="reload" href="javascript:;"></a>
+                            <a class="remove" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed" id="condensedTable">
+                                <thead>
+                                    <tr>
+                                        <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
+                                Comman Practice Followed
+                                -->
+                                        <th style="width:30%">Başlık</th>
+                                        <th style="width:30%">Dil</th>
+                                        <th style="width:30%">Resim</th>
+                                        <th style="width:40%">Eylemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.Item2)
+                                    {
+                                        <tr>
+                                            <td class="v-align-middle semi-bold">@item.title</td>
+                                            <td class="v-align-middle semi-bold">@item.language</td>
+                                            <td class="v-align-middle"><img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="50" height="50" /></td>
+                                            <td class="v-align-middle semi-bold">
+                                                @Html.ActionLink("AÇ", "DisplayPDF", "Catalog", new { id = item.id }, new { @class = "btn btn-primary" })                                               
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,82 +112,76 @@
 </body>
 
 
-
-<script>
-    $("document").ready(function () {
-        $('#ItemId').val('@Model.Item1.language');
-    });
-</script>
-
-
-
-@using (Html.BeginForm("Insert", "Catalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Update", "Catalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
+
     <div id="addCatalogPopup" class="modal fade" role="dialog">
-        
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">@BlueprintMediaServis.Resource.Language.catalog</h5>                        
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Düzenle</h5>
+                </div>
+                <div class="modal-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <div class="input-group ">
+
+                            @Html.DropDownListFor(Model => Model.Item1.language, new SelectList(new List<Object>{
+                                                                                      new { value = "Türkçe" , text = "Türkçe"  },
+                                                                                      new { value = "İngilizce"   , text = "İngilizce" },
+                                                                                      new { value = "Rusça" , text = "Rusça"}}, "value", "text", Model.Item1.language
+                                                                                      ), htmlAttributes: new { @class = "form-control input lg", @Name = "language" })
+                        </div>
                     </div>
-                    <div class="modal-body">
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
 
-                        <div class="form-group">
+                        <div class="input-group ">
+                            <input type="file" id="pdf" name="pdf" class="file">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                            @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
 
-                            <div class="input-group ">
-
-                                @Html.DropDownListFor(m =>m.Item1.language, new SelectList(ViewBag.Languages, "id", "text"), new { @id="itemId",@class = "form-control input lg" })
-
-                            </div>
+                            <span class="input-group-btn">
+                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-
-                            <div class="input-group ">
-                                <input type="file" id="pdf" name="pdf" class="file">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.pdfName, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName" })
-
-                                <span class="input-group-btn">
-                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="file" id="image" name="image" class="file">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.imageName, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName" })
-                                <span class="input-group-btn">
-                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                </span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
-                            </div>
+                    <div class="form-group">
+                        <input type="file" id="image" name="image" class="file">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                            @Html.TextBoxFor(Model => Model.Item1.imageName, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName" })
+                            <span class="input-group-btn">
+                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
                         </div>
 
                     </div>
 
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
-                        <button type="submit" class="btn btn-primary">@BlueprintMediaServis.Resource.Language.save</button>
+                    <div class="form-group">
+                        <div class="input-group ">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.TextBoxFor(Model => Model.Item1.title, htmlAttributes: new { @class = "form-control input lg", @Name = "title" })
+                        </div>
                     </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@BlueprintMediaServis.Resource.Language.close</button>
+                    <button type="submit" class="btn btn-primary">@BlueprintMediaServis.Resource.Language.save</button>
                 </div>
             </div>
         </div>
-        }
+    </div>
+}
 
 

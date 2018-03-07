@@ -5,29 +5,29 @@ using System.Web;
 using System.Web.Mvc;
 using BlueprintMediaServis.Models;
 using System.IO;
+using System.Collections;
 
 namespace BlueprintMediaServis.Controllers
 {
-    class Language
-    {
-        public string id { get; set; }
-        public string text { get; set; }
-    }
+   
     public class CatalogController : Controller
     {
        
         public ActionResult Index()
         {
             BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+            List<SelectListItem> items = new List<SelectListItem>();
+            SelectListItem item1 = new SelectListItem() { Text = "Türkçe", Value = "1", Selected = false };
+            SelectListItem item2 = new SelectListItem() { Text = "İngilizce", Value = "2", Selected = false };
+            SelectListItem item3 = new SelectListItem() { Text = "Rusça", Value = "3", Selected = true };
 
-            List<Language> Languages = new List<Language>
-            {
-                new Language { id = "tr", text = "Türkçe" },
-                new Language { id = "en", text = "İngilizce" },
-                new Language { id = "ru", text = "Rusça" }
-            };
+            items.Add(item1);
+            items.Add(item2);
+            items.Add(item3);
 
-            ViewBag.Languages = Languages;
+            ViewBag.LanguageItem = items;
+
+
 
             // BlueprintMediaServis.Models.Magazines      
             return View(Tuple.Create<Catalog, IEnumerable<Catalog>>(new Catalog(), BMSentity.Catalog.ToList()));
@@ -44,7 +44,7 @@ namespace BlueprintMediaServis.Controllers
 
                 catalogEntity.imageFile = ConvertByte(imagePath, image);
                 catalogEntity.pdfFile = ConvertByte(pdfPath, pdf);
-                
+               
                 catalogEntity.createTime = DateTime.Now;
 
                 entities.Catalog.Add(catalogEntity);
@@ -59,7 +59,7 @@ namespace BlueprintMediaServis.Controllers
         {
             BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
 
-            var catalogTheUpdate = entities.Catalog.Where(w => w.id == catalogEntity.id).FirstOrDefault();
+            var catalogTheUpdate = entities.Catalog.Where(w => w.language == catalogEntity.language.ToString()).FirstOrDefault();
 
             if (image != null)
             {

@@ -20,10 +20,24 @@ namespace BlueprintMediaServis
            );
 
             routes.MapRoute(
-                name: "Default",
+            name: "Custom2",
+            url: "MenuPage",
+            defaults: new { controller = "MenuPage", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+               name: "Default",
+               url: "Home",
+               defaults: new { controller = "Home", action = "Index2", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+                name: "Custom3",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
+
+           
         }
     }
 }

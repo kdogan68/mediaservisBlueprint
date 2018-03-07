@@ -11,26 +11,28 @@
     <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="pdfFile" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="imageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Magazines">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="createTime" Type="DateTime" Precision="3" />
-    <Property Name="updateTime" Type="DateTime" Precision="3" />
-    <Property Name="pdfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="imageName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="pdfFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="imageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="MagazinesContent" Relationship="BlueprintMediaServisModel.FK_MagazinesContent_Magazines" FromRole="Magazines" ToRole="MagazinesContent" />
+    <Property Name="isDeleted" Type="Boolean" />
   </EntityType>
   <EntityContainer Name="BlueprintMediaServisEntity" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Catalog" EntityType="Self.Catalog" />
     <EntitySet Name="Magazines" EntityType="Self.Magazines" />
     <EntitySet Name="Video" EntityType="BlueprintMediaServisModel.Video" />
     <EntitySet Name="Menu" EntityType="BlueprintMediaServisModel.Menu" />
+    <EntitySet Name="Languages" EntityType="BlueprintMediaServisModel.Languages" />
+    <EntitySet Name="User" EntityType="BlueprintMediaServisModel.User" />
+    <EntitySet Name="MagazinesContent" EntityType="BlueprintMediaServisModel.MagazinesContent" />
+    <AssociationSet Name="FK_MagazinesContent_Magazines" Association="BlueprintMediaServisModel.FK_MagazinesContent_Magazines">
+      <End Role="Magazines" EntitySet="Magazines" />
+      <End Role="MagazinesContent" EntitySet="MagazinesContent" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Video">
     <Key>
@@ -51,4 +53,57 @@
     <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="language" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MagazinesContent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="magazineId" Type="Int32" Nullable="false" />
+    <Property Name="createTime" Type="DateTime" Precision="3" />
+    <Property Name="updateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Magazines" Relationship="BlueprintMediaServisModel.FK_MagazinesContent_Magazines" FromRole="MagazinesContent" ToRole="Magazines" />
+    <Property Name="pdfName_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="imageName_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="title_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfFile_tr" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageFile_tr" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageName_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfName_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="title_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfFile_en" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageFile_en" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="title_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfFile_ru" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageFile_ru" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_MagazinesContent_Magazines">
+    <End Type="BlueprintMediaServisModel.Magazines" Role="Magazines" Multiplicity="1" />
+    <End Type="BlueprintMediaServisModel.MagazinesContent" Role="MagazinesContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Magazines">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MagazinesContent">
+        <PropertyRef Name="magazineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

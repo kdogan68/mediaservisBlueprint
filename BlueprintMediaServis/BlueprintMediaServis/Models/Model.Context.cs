@@ -29,5 +29,8 @@ namespace BlueprintMediaServis.Models
         public virtual DbSet<Magazines> Magazines { get; set; }
         public virtual DbSet<Video> Video { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Languages> Languages { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<MagazinesContent> MagazinesContent { get; set; }
     }
 }

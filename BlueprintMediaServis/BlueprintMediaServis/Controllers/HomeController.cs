@@ -8,8 +8,15 @@ namespace BlueprintMediaServis.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index2()
         {
+            string strAuth = Request.UrlReferrer.Authority.ToString();
+            string strTarget = "http://" + strAuth + "/Home";
+            return Redirect(strTarget);
+        }
+
+        public ActionResult Index()
+        {            
             return View();
         }
 
