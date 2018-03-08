@@ -7,8 +7,15 @@ using BlueprintMediaServis.Models;
 
 namespace BlueprintMediaServis.Controllers
 {
+    [UserAuthorize]
     public class MenuController : Controller
     {
+        public ActionResult Index2()
+        {
+            string strAuth = Request.UrlReferrer.Authority.ToString();
+            string strTarget = "http://" + strAuth + "/Menu";
+            return Redirect(strTarget);
+        }
         public ActionResult Index()
         {
 

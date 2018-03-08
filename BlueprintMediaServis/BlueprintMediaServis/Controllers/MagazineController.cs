@@ -10,9 +10,15 @@ using System.Reflection;
 
 namespace BlueprintMediaServis.Controllers
 {
-
+    [UserAuthorize]
     public class MagazineController : Controller
-    {        
+    {
+        public ActionResult Index2()
+        {
+            string strAuth = Request.UrlReferrer.Authority.ToString();
+            string strTarget = "http://" + strAuth + "/Magazine";
+            return Redirect(strTarget);
+        }
         public ActionResult Index()        {
             
             BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();

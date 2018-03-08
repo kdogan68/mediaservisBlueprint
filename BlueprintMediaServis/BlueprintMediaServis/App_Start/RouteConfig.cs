@@ -20,19 +20,45 @@ namespace BlueprintMediaServis
            );
 
             routes.MapRoute(
-            name: "Custom2",
-            url: "MenuPage",
-            defaults: new { controller = "MenuPage", action = "Index", id = UrlParameter.Optional }
+                name: "Custom2",
+                url: "MenuPage",
+                defaults: new { controller = "MenuPage", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Custom4",
+                url: "Magazine",
+                defaults: new { controller = "Magazine", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Custom5",
+                url: "Catalog",
+                defaults: new { controller = "Catalog", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Custom6",
+                url: "Video",
+                defaults: new { controller = "Video", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+               name: "Custom7",
+               url: "Menu",
+               defaults: new { controller = "Menu", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+               name: "Custom8",
+               url: "PagesList",
+               defaults: new { controller = "PagesList", action = "Index", id = UrlParameter.Optional }
+           );
+
             routes.MapRoute(
                name: "Default",
                url: "Home",
-               defaults: new { controller = "Home", action = "Index2", id = UrlParameter.Optional }
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
            );
             routes.MapRoute(
                 name: "Custom3",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
 
             

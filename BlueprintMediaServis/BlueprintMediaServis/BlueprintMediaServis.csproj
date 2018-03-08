@@ -180,10 +180,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CatalogApiController.cs" />
+    <Compile Include="Controllers\MagazinesApiController.cs" />
+    <Compile Include="Controllers\MagazinesContentsApiController.cs" />
+    <Compile Include="Controllers\MenuApiController.cs" />
     <Compile Include="Controllers\MenuPageController.cs" />
     <Compile Include="Controllers\PagesListController.cs" />
     <Compile Include="Controllers\UpdateCatalogController.cs" />
     <Compile Include="Controllers\UpdateMagazineController.cs" />
+    <Compile Include="Controllers\UserAuthorize.cs" />
+    <Compile Include="Controllers\VideoApiController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -338,10 +344,12 @@
     <Content Include="Views\UpdateCatalog\Index.cshtml" />
     <Content Include="Views\MenuPage\Index.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLoginPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\" />
+    <Folder Include="dist\" />
     <Folder Include="pages\" />
     <Folder Include="Views\LanguageModel\" />
     <Folder Include="Views\UpdateMagazine\Index\assets\" />

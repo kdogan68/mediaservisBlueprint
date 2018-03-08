@@ -18,5 +18,6 @@ namespace BlueprintMediaServis.Models
         public Nullable<System.DateTime> createTime { get; set; }
         public Nullable<System.DateTime> updateTime { get; set; }
         public string url { get; set; }
+        public string embedcode { get; set; }
     }
 }

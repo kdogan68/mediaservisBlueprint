@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Video">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Video">
         <MappingFragment StoreEntitySet="Video">
+          <ScalarProperty Name="embedcode" ColumnName="embedcode" />
           <ScalarProperty Name="url" ColumnName="url" />
           <ScalarProperty Name="updateTime" ColumnName="updateTime" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />

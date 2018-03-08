@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BlueprintMediaServis.Controllers
 {
+    [UserAuthorize]
     public class UpdateMagazineController : Controller
     {
         
@@ -50,32 +51,58 @@ namespace BlueprintMediaServis.Controllers
 
 
         [HttpPost]
-        public ActionResult Update(Magazines magazineEntity,MagazinesContent magazineContentEntity, HttpPostedFileBase image, HttpPostedFileBase pdf)
+        public ActionResult Update(Magazines magazineEntity, MagazinesContent magazineContentEntity, HttpPostedFileBase image_tr, HttpPostedFileBase image_en, HttpPostedFileBase image_ru, HttpPostedFileBase pdf_tr, HttpPostedFileBase pdf_en, HttpPostedFileBase pdf_ru)
         {
             BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
 
             var magazineContentTheUpdate = entities.MagazinesContent.Where(w => w.id == magazineContentEntity.id).FirstOrDefault();
 
-            if (image != null)
+            if (image_tr != null)
             {
-                string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image.FileName));
-                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image);
+                string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_tr.FileName));
+                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image_tr);
+            }
+            if (image_en != null)
+            {
+                string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_en.FileName));
+                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image_en);
+            }
+            if (image_ru != null)
+            {
+                string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_ru.FileName));
+                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image_ru);
             }
 
-            if (pdf != null)
+
+            if (pdf_tr != null)
             {
-                string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf.FileName));
-                magazineContentTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
+                string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_tr.FileName));
+                magazineContentTheUpdate.pdfFile_tr = ConvertByte(pdfPath, pdf_tr);
+            }
+            if (pdf_en != null)
+            {
+                string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_en.FileName));
+                magazineContentTheUpdate.pdfFile_en = ConvertByte(pdfPath, pdf_en);
+            }
+            if (pdf_ru != null)
+            {
+                string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf_ru.FileName));
+                magazineContentTheUpdate.pdfFile_ru = ConvertByte(pdfPath, pdf_ru);
             }
 
 
-            magazineContentTheUpdate.imageName = magazineContentEntity.imageName;
-            magazineContentTheUpdate.pdfName = magazineContentEntity.pdfName;
-            magazineContentTheUpdate.title = magazineContentEntity.title;
-            magazineContentTheUpdate.language1 = magazineContentEntity.language1;
+            magazineContentTheUpdate.imageName_tr = magazineContentEntity.imageName_tr;
+            magazineContentTheUpdate.imageName_en = magazineContentEntity.imageName_en;
+            magazineContentTheUpdate.imageName_ru = magazineContentEntity.imageName_ru;
+            magazineContentTheUpdate.pdfName_tr = magazineContentEntity.pdfName_tr;
+            magazineContentTheUpdate.pdfName_en = magazineContentEntity.pdfName_en;
+            magazineContentTheUpdate.pdfName_ru = magazineContentEntity.pdfName_ru;
+            magazineContentTheUpdate.title_tr = magazineContentEntity.title_tr;
+            magazineContentTheUpdate.title_en = magazineContentEntity.title_en;
+            magazineContentTheUpdate.title_ru = magazineContentEntity.title_ru;
             magazineContentTheUpdate.updateTime = DateTime.Now;
 
-            entities.SaveChanges();
+           entities.SaveChanges();
 
 
             return Redirect(Request.UrlReferrer.ToString());

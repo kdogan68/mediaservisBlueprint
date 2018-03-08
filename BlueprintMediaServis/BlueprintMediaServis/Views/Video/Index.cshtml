@@ -55,7 +55,7 @@
                         <div class="card-title">
                             VİDEO
                         </div>
-                     
+
 
                         <div class="tools">
                             <a class="collapse" href="javascript:;"></a>
@@ -70,28 +70,28 @@
                                 <thead>
                                     <tr>
                                         <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
-                                Comman Practice Followed
-                                -->
+                                        Comman Practice Followed
+                                        -->
                                         <th style="width:30%"></th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                        <tr>
-                                            <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode"]" width="560" height="315" frameborder="0" allowfullscreen></iframe></td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td class="v-align-middle semi-bold text-center"><a href="#addVideoPopup" class="btn btn-primary " data-toggle="modal">Yeni Video Ekle</a></td>
-                                        </tr>
-                                    
+                                    <tr>
+                                        <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode"]" width="560" height="315" frameborder="0" allowfullscreen></iframe></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle semi-bold text-center"><a href="#addVideoPopup" class="btn btn-primary " data-toggle="modal">Yeni Video Ekle</a></td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
     </div>
 </body>
@@ -106,7 +106,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Url Giriniz</h5>                   
+                    <h5 class="modal-title" id="exampleModalLongTitle">Url Giriniz</h5>
                 </div>
                 <div class="modal-body">
 
@@ -115,10 +115,13 @@
 
 
                     <div class="form-group">
-                        <div class="input-group col-xs-12">
+                        <div class="input-group col-xs-12 col-lg-offset-2 ">
 
                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                             @Html.TextBoxFor(model => Model.url, htmlAttributes: new { @class = "form-control input lg", @Name = "url" })
+                        </div>
+                        <div class="input-group col-xs-12 col-lg-offset-2 ">
+                          Örneğin:https://www.youtube.com/watch?v=kNn_Br1IRX4
                         </div>
                     </div>
 

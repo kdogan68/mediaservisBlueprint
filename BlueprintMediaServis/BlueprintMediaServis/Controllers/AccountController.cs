@@ -58,6 +58,7 @@ namespace BlueprintMediaServis.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            
             return View();
         }
 
@@ -79,11 +80,11 @@ namespace BlueprintMediaServis.Controllers
             var result =BMSentity.User.FirstOrDefault(temp => temp.userName == userEntity.userName && temp.password == userEntity.password);
             if (result != null)
             {
-                Session["userName"] = result;
-
+                
+                Session["authenticationResult"] = true;
                 return (RedirectToAction("Index2", "Home"));
             }
-
+            
             ModelState.AddModelError("", "Kullanıcı adı yada şifre yanlış.");
             return View(userEntity);
            

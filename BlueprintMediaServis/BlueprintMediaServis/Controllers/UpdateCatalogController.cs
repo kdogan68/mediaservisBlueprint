@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BlueprintMediaServis.Controllers
 {
+    [UserAuthorize]
     public class UpdateCatalogController : Controller
     {
         // GET: UpdateCatalog

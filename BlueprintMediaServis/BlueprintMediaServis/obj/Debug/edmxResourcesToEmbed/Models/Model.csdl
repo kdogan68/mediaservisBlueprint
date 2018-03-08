@@ -6,9 +6,9 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="createTime" Type="DateTime" Precision="3" />
-    <Property Name="pdfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="imageName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pdfName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="imageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="pdfFile" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="imageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -42,6 +42,7 @@
     <Property Name="createTime" Type="DateTime" Precision="3" />
     <Property Name="updateTime" Type="DateTime" Precision="3" />
     <Property Name="url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="embedcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -88,9 +89,9 @@
     <Property Name="title_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="pdfFile_en" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="imageFile_en" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="imageName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="pdfName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="title_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="imageName_ru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pdfName_ru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="title_ru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="pdfFile_ru" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="imageFile_ru" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>

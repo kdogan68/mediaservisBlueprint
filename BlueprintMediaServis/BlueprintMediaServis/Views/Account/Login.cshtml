@@ -2,10 +2,12 @@
 
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Giriş";
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <head>
 
@@ -24,23 +26,23 @@
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.userName, new { @class = "col-md-2 control-label" })
+                                    @Html.LabelFor(m => m.userName,"Kullanıcı Adı", new { @class = "col-md-2 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.userName, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.userName, new { @class = "form-control", @name = "userName"})
                                         @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.password, new { @class = "col-md-2 control-label" })
+                                    @Html.LabelFor(m => m.password,"Şifre", new { @class = "col-md-2 control-label" })
                                     <div class="col-md-10">
-                                        @Html.PasswordFor(m => m.password, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => m.password, new { @class = "form-control", @name = "password"})
                                         @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Log in" class="btn btn-default" />
+                                        <input type="submit" value="Giriş" class="btn btn-default" />
                                     </div>
                                 </div>                                
                                 @* Enable this once you have account confirmation enabled for password reset functionality

@@ -34,13 +34,11 @@
     <!-- BEGIN SIDEBPANEL-->
     <nav class="page-sidebar" data-pages="sidebar">
         <div class="sidebar-header">
-            <img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">
-            <div class="sidebar-header-controls">
-                <button type="button" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20 hidden-md-down" data-pages-toggle="#appMenu">
-                    <i class="fa fa-angle-down fs-16"></i>
-                </button>
-                <button type="button" class="btn btn-link hidden-md-down" data-toggle-pin="sidebar">
-                    <i class="fa fs-12"></i>
+           <!-- <img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">-->
+            <div class="sidebar-header-controls ">
+                
+                <button type="button" class="btn btn-link hidden-md-down " data-toggle-pin="sidebar">
+                    <i class="fa fs-12 pull-right"></i>
                 </button>
             </div>
         </div>
@@ -49,22 +47,22 @@
             <ul class="menu-items">
                 <li class="">
                 @Html.ActionLink("Anasayfa", "Index", "Home")
-                    <span class="icon-thumbnail"><i class="pg-social"></i></span>
+                    <span class="bg-succes icon-thumbnail"><i class="pg-home"></i></span>
                 </li>
 
                 <li class="">
-                    @Html.ActionLink("Dergiler", "Index", "Magazine")
-                    <span class="icon-thumbnail"><i class="pg-social"></i></span>
+                    @Html.ActionLink("Dergiler", "Index2", "Magazine")
+                    <span class="icon-thumbnail"><i class="pg-layouts"></i></span>
                 </li>
 
                 <li class="">
-                    @Html.ActionLink("Katalog", "Index", "Catalog")
-                    <span class="icon-thumbnail"><i class="pg-social"></i></span>
+                    @Html.ActionLink("Katalog", "Index2", "Catalog")
+                    <span class="icon-thumbnail"><i class="pg-note"></i></span>
                 </li>
 
                 <li class="">
-                    @Html.ActionLink("Video", "Index", "Video")
-                    <span class="icon-thumbnail"><i class="pg-social"></i></span>
+                    @Html.ActionLink("Video", "Index2", "Video")
+                    <span class="icon-thumbnail"><i class="pg-video"></i></span>
                 </li>
 
 
@@ -77,12 +75,12 @@
                     <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
                     <ul class="sub-menu">
                         <li>
-                           @Html.ActionLink("Sayfa Ekle", "Index", "Menu")
-                            <span class="icon-thumbnail">L1</span>
+                           @Html.ActionLink("Sayfa Ekle", "Index2", "Menu")
+                            <span class="icon-thumbnail"><i class="pg-plus"></i></span>
                         </li>
                         <li>
-                            @Html.ActionLink("Listele", "Index", "PagesList")
-                            <span class="icon-thumbnail">L1</span>
+                            @Html.ActionLink("Listele", "Index2", "PagesList")
+                            <span class="icon-thumbnail"><i class="pg-menu"></i></span>
                         </li>
                       
                     </ul>

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace BlueprintMediaServis.Controllers
 {
+    [UserAuthorize]
     public class MenuPageController : Controller
     {
         public ActionResult Display(int id)

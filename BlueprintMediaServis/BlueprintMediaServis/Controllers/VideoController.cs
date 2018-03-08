@@ -8,8 +8,15 @@ using System.Web.Mvc;
 
 namespace BlueprintMediaServis.Controllers
 {
+    [UserAuthorize]
     public class VideoController : Controller
     {
+        public ActionResult Index2()
+        {
+            string strAuth = Request.UrlReferrer.Authority.ToString();
+            string strTarget = "http://" + strAuth + "/Video";
+            return Redirect(strTarget);
+        }
         public ActionResult Index()
         {
             if (RetrieveSingle() != null)
@@ -27,7 +34,7 @@ namespace BlueprintMediaServis.Controllers
         {
             string embedYoutubeUrl = YoutubeURLConverter(videoEntity.url);
             BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
-            videoEntity.url = embedYoutubeUrl;
+            videoEntity.embedcode = embedYoutubeUrl;
             videoEntity.createTime = DateTime.Now;
 
             entities.Video.Add(videoEntity);
@@ -46,7 +53,7 @@ namespace BlueprintMediaServis.Controllers
 
             if(result != null)
             {
-                return result.url;
+                return result.embedcode;
             }
 
             return null;

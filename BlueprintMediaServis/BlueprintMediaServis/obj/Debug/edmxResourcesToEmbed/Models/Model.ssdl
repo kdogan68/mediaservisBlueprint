@@ -6,9 +6,9 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="createTime" Type="datetime" />
-    <Property Name="pdfName" Type="varchar" MaxLength="255" />
-    <Property Name="imageName" Type="varchar" MaxLength="255" />
-    <Property Name="title" Type="varchar" MaxLength="255" />
+    <Property Name="pdfName" Type="nvarchar" MaxLength="50" />
+    <Property Name="imageName" Type="nvarchar" MaxLength="50" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" />
     <Property Name="pdfFile" Type="varbinary(max)" />
     <Property Name="imageFile" Type="varbinary(max)" />
     <Property Name="language" Type="varchar" MaxLength="255" />
@@ -46,9 +46,9 @@
     <Property Name="title_en" Type="varchar" MaxLength="255" />
     <Property Name="pdfFile_en" Type="varbinary(max)" Nullable="false" />
     <Property Name="imageFile_en" Type="varbinary(max)" />
-    <Property Name="imageName_ru" Type="varchar" MaxLength="255" />
-    <Property Name="pdfName_ru" Type="varchar" MaxLength="255" />
-    <Property Name="title_ru" Type="varchar" MaxLength="255" />
+    <Property Name="imageName_ru" Type="nvarchar" MaxLength="50" />
+    <Property Name="pdfName_ru" Type="nvarchar" MaxLength="50" />
+    <Property Name="title_ru" Type="nvarchar" MaxLength="50" />
     <Property Name="pdfFile_ru" Type="varbinary(max)" Nullable="false" />
     <Property Name="imageFile_ru" Type="varbinary(max)" />
   </EntityType>
@@ -77,6 +77,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="createTime" Type="datetime" />
     <Property Name="updateTime" Type="datetime" />
+    <Property Name="embedcode" Type="varchar" MaxLength="255" />
     <Property Name="url" Type="varchar" MaxLength="255" />
   </EntityType>
   <Association Name="FK_MagazinesContent_Magazines">
