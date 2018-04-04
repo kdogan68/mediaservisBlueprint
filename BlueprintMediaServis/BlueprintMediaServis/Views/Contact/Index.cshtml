@@ -1,0 +1,703 @@
+﻿@model Tuple<BlueprintMediaServis.Models.Contact, IEnumerable<BlueprintMediaServis.Models.Contact>>
+
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Pages - Admin Dashboard UI Kit - Blank Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+    <link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
+</head>
+
+<body class="fixed-header">
+    <div class="page-container">
+        <div class="page-content-wrapper ">
+            <div class="content ">
+                @using (Html.BeginForm("Insert", "Contact", FormMethod.Post, new { enctype = "multipart/form-data", }))
+            {
+                    @Html.AntiForgeryToken()
+                    <div class="card card-transparent">
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("missingSlug"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Lütfen slug giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>İletişim bilgisi eklendi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingName"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik isim tespit edildi. Lütfen isimlerin hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingStatu"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik statü tespit edildi. Lütfen statülerin hepsini giriniz.
+                                </div>
+                            }                            
+                            else if (ViewBag.Status.ToString().Equals("missingPhone"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik telefon numarası tespit edildi. Lütfen telefon numaralarının hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingFax"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik fax numarası tespit edildi. Lütfen fax numaralarının hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingMail"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik mail adresi tespit edildi. Lütfen mail adreslerinin hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingCity"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik şehir tespit edildi. Lütfen şehirlerin hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingCountry"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik ülke tespit edildi. Lütfen ülkelerin hepsini giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("missingAdress"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik adres tespit edildi. Lütfen adreslerin hepsini giriniz.
+                                </div>
+                            }
+                        }
+                        <div class="card-block">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group form-group-default required">
+                                <label>Slug</label>
+                                @if (ViewBag.Entity != null)
+                                {
+                                    if (ViewBag.Entity.slug != null)
+                                    {
+                                        @Html.TextBoxFor(model => Model.Item1.slug, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "slug", @Value = ViewBag.Entity.slug })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => Model.Item1.slug, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "slug", })
+                                    }
+
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => Model.Item1.slug, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "slug", })
+                                }
+
+                                
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1" data-toggle="tab">Türkçe</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_2" data-toggle="tab">İngilizce</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_3" data-toggle="tab">Rusça</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="tab_1">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>İsim</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.name_tr != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_tr", @Value = ViewBag.Entity.name_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.name_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Statü</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_tr", @Value = ViewBag.Entity.statu_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.statu_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Telefon</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.phone_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_tr", @Value = ViewBag.Entity.phone_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                       @Html.TextBoxFor(model => Model.Item1.phone_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.phone_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Fax</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_tr", @Value = ViewBag.Entity.fax_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                   @Html.TextBoxFor(model => Model.Item1.fax_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>E-posta</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_tr", @Value = ViewBag.Entity.mail_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.mail_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Şehir</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_tr", @Value = ViewBag.Entity.city_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.city_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_tr", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ülke</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_tr",
+                                                       @Value = ViewBag.Entity.country_tr })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_tr", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.country_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_tr", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.adress_tr, htmlAttributes: new { @class = "summernote", @Name = "adress_tr", @id = "summernote_tr" })
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_2">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>İsim</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_en", @Value = ViewBag.Entity.name_en })
+                                                    }
+                                                else
+                                                {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.name_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_en", })
+                                                }                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Statü</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_en", @Value = ViewBag.Entity.statu_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.statu_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_en", })
+                                                }
+
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Telefon</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.phone_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_en", @Value = ViewBag.Entity.phone_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.phone_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.phone_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_en", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Fax</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_en", @Value = ViewBag.Entity.fax_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.fax_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_en", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>E-posta</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_en", @Value = ViewBag.Entity.mail_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.mail_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_en", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Şehir</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_en", @Value = ViewBag.Entity.city_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.city_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_en", })
+                                                }
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ülke</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_en", @Value = ViewBag.Entity.country_en })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_en", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.country_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_en", })
+                                                }
+                                                
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.adress_en, htmlAttributes: new { @class = "summernote", @Name = "adress_en", @id = "summernote_en" })
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_3">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>İsim</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_ru", @Value = ViewBag.Entity.name_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.name_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.name_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_ru", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Statü</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_ru", @Value  = ViewBag.Entity.statu_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.statu_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.statu_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "statu_ru", })
+                                                }
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Telefon</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.phone_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_ru", @Value = ViewBag.Entity.phone_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.phone_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.phone_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "phone_ru", })
+                                                }
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Fax</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_ru", @Value = ViewBag.Entity.fax_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.fax_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.fax_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "fax_ru", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>E-posta</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_ru", @Value = ViewBag.Entity.mail_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.mail_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.mail_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "mail_ru", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Şehir</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_ru", @Value = ViewBag.Entity.city_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.city_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                   @Html.TextBoxFor(model => Model.Item1.city_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "city_ru", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ülke</label>
+                                                @if (ViewBag.Entity != null)
+                                                {
+                                                    if (ViewBag.Entity.slug != null)
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_ru", @Value = ViewBag.Entity.country_ru })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(model => Model.Item1.country_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_ru", })
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => Model.Item1.country_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "country_ru", })
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.adress_ru, htmlAttributes: new { @class = "summernote", @Name = "adress_ru", @id = "summernote_ru" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <button type="submit" class="btn btn-complete">Kaydet</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#summernote_tr').summernote({                
+                tabsize: 2,
+                height: 400
+            });
+            $('#summernote_en').summernote({                
+                tabsize: 2,
+                height: 400
+            });
+            $('#summernote_ru').summernote({                
+                tabsize: 2,
+                height: 400
+            });
+        });
+
+        function SetPageAttributes2() {
+            
+            var textAreaValue_tr = @Html.Raw(Json.Encode(Model.Item2.First().adress_tr));
+            var textAreaValue_en = @Html.Raw(Json.Encode(Model.Item2.First().adress_en));
+            var textAreaValue_ru = @Html.Raw(Json.Encode(Model.Item2.First().adress_ru));        
+
+            $('#summernote_tr').summernote('code', textAreaValue_tr);
+            $('#summernote_en').summernote('code', textAreaValue_en);
+            $('#summernote_ru').summernote('code', textAreaValue_ru);
+        }
+        window.onload = SetPageAttributes2;
+
+    </script>
+</body>
+
+
+
+

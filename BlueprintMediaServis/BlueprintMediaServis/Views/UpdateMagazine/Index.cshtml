@@ -1,11 +1,9 @@
-﻿@model  BlueprintMediaServis.Models.MagazinesContent
+﻿@model  Tuple<BlueprintMediaServis.Models.MagazinesContent, IEnumerable<SelectListItem>,IEnumerable< BlueprintMediaServis.Models.MagazinesContent>>
 
 @{
     ViewBag.Title = "UpdateMagazine";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 <script type="text/javascript">
 
@@ -18,16 +16,39 @@
     });
 
     function SetPageAttributes()
-    {        
-        var dropDownListValue = @Html.Raw(Json.Encode(ViewData["language"]));
-        
-        $("#languageSelect").val(dropDownListValue);
+    {
+        var categoryDropDownListValue = @Html.Raw(Json.Encode(ViewData["category"]));
+
+        var pdfname_tr = @Html.Raw(Json.Encode(Model.Item3.First().pdfName_tr));
+        var pdfname_en = @Html.Raw(Json.Encode(Model.Item3.First().pdfName_en));
+        var pdfname_ru = @Html.Raw(Json.Encode(Model.Item3.First().pdfName_ru));
+
+        var imagename_tr = @Html.Raw(Json.Encode(Model.Item3.First().imageName_tr));
+        var imagename_en = @Html.Raw(Json.Encode(Model.Item3.First().imageName_en));
+        var imagename_ru = @Html.Raw(Json.Encode(Model.Item3.First().imageName_ru));
+
+        var title_tr = @Html.Raw(Json.Encode(Model.Item3.First().title_tr));
+        var title_en = @Html.Raw(Json.Encode(Model.Item3.First().title_en));
+        var title_ru = @Html.Raw(Json.Encode(Model.Item3.First().title_ru));
+
+        $("#pdfName_tr").val(pdfname_tr);
+        $("#pdfName_en").val(pdfname_tr);
+        $("#pdfName_ru").val(pdfname_tr);
+
+        $("#imageName_tr").val(imagename_tr);
+        $("#imageName_en").val(imagename_en);
+        $("#imageName_ru").val(imagename_ru);
+
+        $("#title_tr").val(title_tr);
+        $("#title_en").val(title_en);
+        $("#title_ru").val(title_ru);
+
+
+        $("#categoryId").val(categoryDropDownListValue);
     }
     window.onload = SetPageAttributes;
-    
+
 </script>
-
-
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -65,12 +86,20 @@
                 @using (Html.BeginForm("Update", "UpdateMagazine", FormMethod.Post, new { enctype = "multipart/form-data", }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => Model.id)
-
-                  
+                    @Html.HiddenFor(model => Model.Item3.First().id)                  
 
                     <div class="panel">
                         <div class="panel-heading">
+                            @if (ViewBag.Status != null)
+                            {
+                                if (ViewBag.Status.ToString().Equals("success"))
+                                {
+                                    <div class="alert alert-success" role="alert">
+                                        <button class="close" data-dismiss="alert"></button>
+                                        <strong>İşlem Başarılı: </strong>Dergi güncellendi.
+                                    </div>
+                                }                               
+                            }
                             <h5 class="modal-title" id="exampleModalLongTitle">@BlueprintMediaServis.Resource.Language.edit</h5>
 
                         </div>
@@ -88,6 +117,7 @@
                                 <li>
                                     <a href="#tab_3" data-toggle="tab">Rusça</a>
                                 </li>
+                                @Html.DropDownListFor(Model => Model.Item1.categoryId, Model.Item2,"Kategori Seçiniz",htmlAttributes: new { @class = "btn btn-primary btn-lg dropdown dropdown-toggle", @Name = "categoryId", @Id = "categoryId" })
                             </ul>
                             <div class="tab-content">
 
@@ -97,7 +127,7 @@
                                         <div class="input-group col-xs-3">
                                             <input type="file" id="pdf_tr" name="pdf_tr" class="file">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                            @Html.TextBoxFor(Model => Model.pdfName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_tr" })
+                                            @Html.TextBoxFor(Model => Model.Item1.pdfName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_tr", @Id = "pdfName_tr" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -108,7 +138,7 @@
                                         <input type="file" id="image_tr" name="image_tr" class="file">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            @Html.TextBoxFor(Model => Model.imageName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_tr" })
+                                            @Html.TextBoxFor(Model => Model.Item1.imageName_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_tr", @Id = "imageName_tr" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -118,10 +148,9 @@
                                     <div class="form-group">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            @Html.TextBoxFor(Model => Model.title_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "title_tr" })
+                                            @Html.TextBoxFor(Model => Model.Item1.title_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "title_tr", @Id = "title_tr" })
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="tab-pane fade" id="tab_2">
@@ -130,7 +159,7 @@
                                         <div class="input-group col-xs-3">
                                             <input type="file" id="pdf_en" name="pdf_en" class="file">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                            @Html.TextBoxFor(Model => Model.pdfName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_en" })
+                                            @Html.TextBoxFor(Model => Model.Item1.pdfName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_en", @Id = "pdfName_en" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -141,7 +170,7 @@
                                         <input type="file" id="image_en" name="image_en" class="file">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            @Html.TextBoxFor(Model => Model.imageName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_en" })
+                                            @Html.TextBoxFor(Model => Model.Item1.imageName_en, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_en", @Id = "imageName_en" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -151,7 +180,7 @@
                                     <div class="form-group">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            @Html.TextBoxFor(Model => Model.title_en, htmlAttributes: new { @class = "form-control input lg", @Name = "title_en" })
+                                            @Html.TextBoxFor(Model => Model.Item1.title_en, htmlAttributes: new { @class = "form-control input lg", @Name = "title_en", @Id = "title_en" })
                                         </div>
                                     </div>
 
@@ -163,7 +192,7 @@
                                         <div class="input-group col-xs-3">
                                             <input type="file" id="pdf_ru" name="pdf_ru" class="file">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                            @Html.TextBoxFor(Model => Model.pdfName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_ru" })
+                                            @Html.TextBoxFor(Model => Model.Item1.pdfName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "pdfName_ru", @Id = "pdfName_ru" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -174,7 +203,7 @@
                                         <input type="file" id="image_ru" name="image_ru" class="file">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            @Html.TextBoxFor(Model => Model.imageName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_ru" })
+                                            @Html.TextBoxFor(Model => Model.Item1.imageName_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "imageName_ru", @Id = "imageName_ru" })
                                             <span class="input-group-btn">
                                                 <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
                                             </span>
@@ -184,7 +213,7 @@
                                     <div class="form-group">
                                         <div class="input-group col-xs-3">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            @Html.TextBoxFor(Model => Model.title_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "title_ru" })
+                                            @Html.TextBoxFor(Model => Model.Item1.title_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "title_ru", @Id = "title_ru" })
                                         </div>
                                     </div>
 

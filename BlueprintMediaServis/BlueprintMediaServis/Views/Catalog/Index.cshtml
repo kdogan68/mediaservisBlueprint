@@ -55,12 +55,34 @@
 </head>
 
 <body class="fixed-header">
+
     <div class="page-container">
+
         <div class="page-content-wrapper ">
             <!-- START PAGE CONTENT -->
+
             <div class="content ">
+                
                 <div class="card card-transparent">
                     <div class="card-header ">
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>@ViewBag.Language katalog güncellendi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("noChange"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Değişiklik yapmadınız.
+                                </div>
+                            }
+                        }
+
                         <div class="card-title">
                             KATALOGLAR
                         </div>
@@ -77,10 +99,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-condensed" id="condensedTable">
                                 <thead>
-                                    <tr>
-                                        <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
-                                Comman Practice Followed
-                                -->
+                                    <tr>                                      
                                         <th style="width:30%">Başlık</th>
                                         <th style="width:30%">Dil</th>
                                         <th style="width:30%">Resim</th>
@@ -96,7 +115,7 @@
                                             <td class="v-align-middle semi-bold">@item.language</td>
                                             <td class="v-align-middle"><img src="data:image;base64,@System.Convert.ToBase64String(item.imageFile)" width="50" height="50" /></td>
                                             <td class="v-align-middle semi-bold">
-                                                @Html.ActionLink("AÇ", "DisplayPDF", "Catalog", new { id = item.id }, new { @class = "btn btn-primary" })                                               
+                                                @Html.ActionLink("Aç", "DisplayPDF", "Catalog", new { id = item.id }, new { @class = "btn btn-primary" })
 
                                             </td>
                                         </tr>
@@ -122,24 +141,24 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Düzenle</h5>
+                    <h5 class="modal-title">Düzenle</h5><br />
                 </div>
                 <div class="modal-body">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     <div class="form-group">
-                        <div class="input-group col-xs-4 ">
+                        <div class="input-group col-xs-8 col-lg-offset-6 ">
 
                             @Html.DropDownListFor(Model => Model.Item1.language, new SelectList(new List<Object>{
                                                                                       new { value = "Türkçe" , text = "Türkçe"  },
                                                                                       new { value = "İngilizce"   , text = "İngilizce" },
                                                                                       new { value = "Rusça" , text = "Rusça"}}, "value", "text", Model.Item1.language
-                                                                                      ), htmlAttributes: new { @class = "form-control", @Name = "language" })
+                                                                                      ), htmlAttributes: new { @class = "btn btn-primary btn-lg dropdown dropdown-toggle", @Name = "language" })
 
                         </div>
                     </div>
-
+                    
                     <div class="form-group">
 
                         <div class="input-group col-xs-9">

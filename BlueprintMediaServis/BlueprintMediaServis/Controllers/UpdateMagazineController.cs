@@ -21,32 +21,26 @@ namespace BlueprintMediaServis.Controllers
 
             
             string strAuth = Request.UrlReferrer.Authority.ToString();
-            string strTarget ="http://" + strAuth + "/UpdateMagazine";
+            string strTarget ="http://" + strAuth + "/mobileapp/UpdateMagazine";
             return Redirect(strTarget);
         }
 
         public ActionResult Index()
         {
-            BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
-            var query = entity.MagazinesContent.ToList();
+            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
+            MagazineCategory magazineCategoryEntity = new MagazineCategory();
+
+            IEnumerable<SelectListItem> enumarableMagazineCategoryList = magazineCategoryEntity.RetrieveMagazineCategory();
+
+            var query = BMSentity.MagazinesContent.ToList();
             var result = query.Where(m => m.id == (int)Session["id"]).ToList();
 
-            ViewData["ttle_tr"] = result[0].title_tr;
-            ViewData["imageName_tr"] = result[0].imageName_tr;
-            ViewData["pdfName_tr"] = result[0].pdfName_tr;
-            ViewData["ttle_en"] = result[0].title_en;
-            ViewData["imageName_en"] = result[0].imageName_en;
-            ViewData["pdfName_en"] = result[0].pdfName_en;
-            ViewData["ttle_ru"] = result[0].title_ru;
-            ViewData["imageName_ru"] = result[0].imageName_ru;
-            ViewData["pdfName_ru"] = result[0].pdfName_ru;
+           
+            ViewData["category"] = result[0].categoryId;
 
 
-
-            return View(result[0]);
+            return View(Tuple.Create<MagazinesContent, IEnumerable<SelectListItem>, IEnumerable<MagazinesContent>>(new MagazinesContent(), enumarableMagazineCategoryList, result));
             
-
-        
         }
 
 
@@ -65,12 +59,12 @@ namespace BlueprintMediaServis.Controllers
             if (image_en != null)
             {
                 string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_en.FileName));
-                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image_en);
+                magazineContentTheUpdate.imageFile_en = ConvertByte(imagePath, image_en);
             }
             if (image_ru != null)
             {
                 string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image_ru.FileName));
-                magazineContentTheUpdate.imageFile_tr = ConvertByte(imagePath, image_ru);
+                magazineContentTheUpdate.imageFile_ru = ConvertByte(imagePath, image_ru);
             }
 
 
@@ -100,12 +94,16 @@ namespace BlueprintMediaServis.Controllers
             magazineContentTheUpdate.title_tr = magazineContentEntity.title_tr;
             magazineContentTheUpdate.title_en = magazineContentEntity.title_en;
             magazineContentTheUpdate.title_ru = magazineContentEntity.title_ru;
+            magazineContentTheUpdate.categoryId = magazineContentEntity.categoryId;
+
             magazineContentTheUpdate.updateTime = DateTime.Now;
+                        
+            entities.SaveChanges();
 
-           entities.SaveChanges();
+            Session["status"] = "success";
 
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
         private Byte[] ConvertByte(string filePath, HttpPostedFileBase f)

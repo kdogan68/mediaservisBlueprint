@@ -60,6 +60,11 @@ Generated From SASS
 html {
   height: 100%;
 }
+.mor{
+      color: #fff!important;
+    background-color: #6d5cae!important;
+    border-color: #6d5cae!important;
+}
 /* Body Triggers for layout options
 ------------------------------------------------------------------
 */
@@ -172,7 +177,7 @@ body.menu-pin .overlay .overlay-brand {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 60px;
+  height: 80px;
   width: 100%;
   padding: 0 20px 0 0;
   z-index: 800;
@@ -343,13 +348,13 @@ body.menu-pin .overlay .overlay-brand {
 .page-sidebar .sidebar-header {
   /* Side-bar header */
   display: block;
-  height: 60px;
+  height: 80px;
   line-height: 60px;
-  background-color: #272b35;
+  background-color: #fff;
   border-bottom: 1px solid #232730;
   color: #fff;
   width: 100%;
-  padding: 0 20px;
+  padding: 6px 20px;
   padding-left: 30px;
   clear: both;
   z-index: 10;
@@ -405,6 +410,7 @@ body.menu-pin .overlay .overlay-brand {
   height: calc(100% - 50px);
   position: relative;
   width: 100%;
+  padding-top: 40px;
 }
 .page-sidebar .sidebar-menu .outer-tab-nav-section {
   display: inline-block;

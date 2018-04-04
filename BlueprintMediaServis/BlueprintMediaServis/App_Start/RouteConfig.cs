@@ -30,10 +30,51 @@ namespace BlueprintMediaServis
                 defaults: new { controller = "Magazine", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
+               name: "Custom9",
+               url: "MagazineCategory",
+               defaults: new { controller = "MagazineCategory", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+               name: "Custom10",
+               url: "UpdateMagazineCategory",
+               defaults: new { controller = "UpdateMagazineCategory", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+              name: "Custom11",
+              url: "BoardMembers",
+              defaults: new { controller = "BoardMembers", action = "Index", id = UrlParameter.Optional }
+          );
+            routes.MapRoute(
+               name: "Custom12",
+               url: "BoardMembersList",
+               defaults: new { controller = "BoardMembersList", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+                name: "Custom13",
+                url: "UpdateBoardMember",
+                defaults: new { controller = "UpdateBoardMember", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Custom14",
+                url: "Contact",
+                defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Custom15",
+                url: "ContactList",
+                defaults: new { controller = "ContactList", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Custom16",
+                url: "UpdateContact",
+                defaults: new { controller = "UpdateContact", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Custom5",
                 url: "Catalog",
                 defaults: new { controller = "Catalog", action = "Index", id = UrlParameter.Optional }
             );
+
             routes.MapRoute(
                 name: "Custom6",
                 url: "Video",

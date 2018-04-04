@@ -31,6 +31,10 @@ namespace BlueprintMediaServis.Controllers
             items.Add(item3);
 
             ViewBag.LanguageItem = items;
+            ViewBag.Status = Session["status"];
+            ViewBag.Language = Session["language"];
+            Session["status"] = null;
+            Session["language"] = null;
 
 
 
@@ -65,27 +69,45 @@ namespace BlueprintMediaServis.Controllers
             BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
 
             var catalogTheUpdate = entities.Catalog.Where(w => w.language == catalogEntity.language.ToString()).FirstOrDefault();
+            int counter = 0;
 
             if (image != null)
             {
                 string imagePath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(image.FileName));
                 catalogTheUpdate.imageFile = ConvertByte(imagePath, image);
+                catalogTheUpdate.imageName = catalogEntity.imageName;
+                counter ++;
             }
 
             if (pdf != null)
             {
                 string pdfPath = Path.Combine(Server.MapPath("~/Images"), Path.GetFileName(pdf.FileName));
                 catalogTheUpdate.pdfFile = ConvertByte(pdfPath, pdf);
+                catalogTheUpdate.pdfName = catalogEntity.pdfName;
+                counter++;
             }
 
-            catalogTheUpdate.imageName = catalogEntity.imageName;
-            catalogTheUpdate.pdfName = catalogEntity.pdfName;
-            catalogTheUpdate.title = catalogEntity.title;
+            if(catalogEntity.title != null)
+            {
+                catalogTheUpdate.title = catalogEntity.title;
+                counter++;
+            }            
+           
             catalogTheUpdate.createTime = DateTime.Now;
-
+            
             entities.SaveChanges();
 
-            return Redirect(Request.UrlReferrer.ToString());
+            if (counter != 0)
+            {
+                Session["status"] = "success";
+                Session["language"] = catalogEntity.language;
+            }
+            else
+            {
+                Session["status"] = "noChange";
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult RetrieveSingle(int id)

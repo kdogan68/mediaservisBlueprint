@@ -33,7 +33,9 @@ namespace BlueprintMediaServis.Models
         public string title_ru { get; set; }
         public byte[] pdfFile_ru { get; set; }
         public byte[] imageFile_ru { get; set; }
+        public Nullable<int> categoryId { get; set; }
     
         public virtual Magazines Magazines { get; set; }
+        public virtual MagazineCategory MagazineCategory { get; set; }
     }
 }

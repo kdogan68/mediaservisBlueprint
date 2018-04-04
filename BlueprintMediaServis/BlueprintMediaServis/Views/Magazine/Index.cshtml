@@ -1,5 +1,5 @@
 ﻿
-@model Tuple<BlueprintMediaServis.Models.Magazines, IEnumerable<BlueprintMediaServis.Models.Magazines>, BlueprintMediaServis.Models.MagazinesContent>
+@model Tuple<BlueprintMediaServis.Models.Magazines, IEnumerable<BlueprintMediaServis.Models.Magazines>, BlueprintMediaServis.Models.MagazinesContent, IEnumerable<SelectListItem>>
 
 @{
     ViewBag.Title = "Index";
@@ -57,8 +57,47 @@
 
                 <div class="card card-transparent">
                     <div class="card-header ">
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("missing"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Eksik İçerik tespit edildi. Lütfen dergi güncelleme sayfasından ekleyiniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Dergi eklendi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("failed"))
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Hata: </strong>Birden fazla eksik içerik tespit edildi. Lütfen tekrar deneyin.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("deleted"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Dergi silindi.
+                                </div>
+                            }                          
+                            else if (ViewBag.Status.ToString().Equals("itemNotFound"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Dergi bulunamadı.
+                                </div>
+                            }
+                        }
+
                         <div class="card-title">
-                            Dergiler                         
+                            Dergiler
                         </div>
                         <a href="#addMagazinePopup" class="btn btn-primary pull-right" data-toggle="modal">Dergi Ekle</a>
 
@@ -74,12 +113,11 @@
                             <table class="table table-hover table-condensed" id="condensedTable">
                                 <thead>
                                     <tr>
-                                        <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
-                                            Comman Practice Followed
-                                            -->
-                                        <th style="width:30%">Id</th>
+
+                                        <th style="width:10%">Id</th>
+                                        <th style="width:30%">Kategori</th>
                                         <th style="width:30%">Başlık</th>
-                                        <th style="width:40%">Eylemler</th>
+                                        <th style="width:30%">Eylemler</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,20 +129,20 @@
 
                                             @foreach (var itemcont in item.MagazinesContent)
                                             {
+                                                <td class="v-align-middle semi-bold">@itemcont.MagazineCategory.text</td>
                                                 <td class="v-align-middle semi-bold">@itemcont.title_tr</td>
-                                            
+
                                                 <!--<td class="v-align-middle semi-bold">item.language1</td>
                                                   <td class="v-align-middle"><img src="data:image;base64,System.Convert.ToBase64String(item.imageFile)" width="50" height="50" /></td>-->
                                                 <td class="v-align-middle semi-bold">
-                                                    @Html.ActionLink("AÇ", "DisplayPDF", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
-                                                    @Html.ActionLink("DUZENLE", "Display", "UpdateMagazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
-                                                    @Html.ActionLink("SİL", "Delete", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("Aç", "DisplayPDF", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
+                                                    @Html.ActionLink("Düzenle", "Display", "UpdateMagazine", new { id = itemcont.id }, new { @class = "btn btn-primary" })
+                                                    @Html.ActionLink("Sil", "Delete", "Magazine", new { id = itemcont.id }, new { @class = "btn btn-danger" })
 
                                                 </td>
                                             }
-
-                                            </tr>
-                                            }
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -114,6 +152,10 @@
         </div>
     </div>
 </body>
+
+
+
+
 
 
 
@@ -143,6 +185,9 @@
                         <li>
                             <a href="#tab_3" data-toggle="tab">Rusça</a>
                         </li>
+
+
+                        @Html.DropDownListFor(Model => Model.Item3.categoryId, Model.Item4,"Kategori Seçiniz", htmlAttributes: new { @class = "btn btn-primary btn-lg dropdown dropdown-toggle pull-right", @Name = "categoryId" })
                     </ul>
                     <div class="tab-content">
 

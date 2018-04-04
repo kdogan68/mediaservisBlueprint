@@ -19,11 +19,34 @@ namespace BlueprintMediaServis.Controllers
         // GET: PagesList
         public ActionResult Index()
         {
-            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();
-            
-            var model = BMSentity.Menu;          
+            BlueprintMediaServisEntity BMSentity = new BlueprintMediaServisEntity();            
+            var model = BMSentity.Menu;
+
+            ViewBag.Status = Session["status"];
+            Session["status"] = null;
 
             return View(model);           
+        }
+
+        public ActionResult DeletePage(int id)
+        {
+            BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
+            Menu menuEntity = entity.Menu.Find(id);
+
+            if (menuEntity != null)
+            {
+                Menu menu = entity.Menu.Find(menuEntity.id);
+                entity.Menu.Remove(menu);              
+                entity.SaveChanges();
+                Session["status"] = "deleted";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Session["status"] = "itemNotFound";
+            }
+
+            return RedirectToAction("Index");            
         }
     }
 }

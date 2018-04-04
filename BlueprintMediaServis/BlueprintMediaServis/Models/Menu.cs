@@ -11,13 +11,27 @@ namespace BlueprintMediaServis.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Menu
     {
         public int id { get; set; }
         public Nullable<System.DateTime> createTime { get; set; }
-        public string name { get; set; }
-        public string content { get; set; }
-        public string language { get; set; }
+        public string name_tr { get; set; }
+        [AllowHtml]
+        public string content_tr { get; set; }
+        public string name_en { get; set; }
+        [AllowHtml]
+        public string content_en { get; set; }
+        public string name_ru { get; set; }
+        [AllowHtml]
+        public string content_ru { get; set; }
+        public string slug { get; set; }
+        public byte[] image_tr { get; set; }
+        public byte[] image_en { get; set; }
+        public byte[] image_ru { get; set; }
+        public string imageName_tr { get; set; }
+        public string imageName_en { get; set; }
+        public string imageName_ru { get; set; }
     }
 }

@@ -33,6 +33,13 @@
       <End Role="Magazines" EntitySet="Magazines" />
       <End Role="MagazinesContent" EntitySet="MagazinesContent" />
     </AssociationSet>
+    <EntitySet Name="MagazineCategory" EntityType="BlueprintMediaServisModel.MagazineCategory" />
+    <AssociationSet Name="FK_MagazinesContent_MagazineCategory" Association="BlueprintMediaServisModel.FK_MagazinesContent_MagazineCategory">
+      <End Role="MagazineCategory" EntitySet="MagazineCategory" />
+      <End Role="MagazinesContent" EntitySet="MagazinesContent" />
+    </AssociationSet>
+    <EntitySet Name="Contact" EntityType="BlueprintMediaServisModel.Contact" />
+    <EntitySet Name="BoardMembers" EntityType="BlueprintMediaServisModel.BoardMembers" />
   </EntityContainer>
   <EntityType Name="Video">
     <Key>
@@ -40,9 +47,12 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="createTime" Type="DateTime" Precision="3" />
-    <Property Name="updateTime" Type="DateTime" Precision="3" />
-    <Property Name="url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="embedcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="embedcode_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="url_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="embedcode_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="url_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="embedcode_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="url_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -50,9 +60,19 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="createTime" Type="DateTime" Precision="3" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="language" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="name_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="content_tr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="content_en" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="content_ru" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="slug" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image_tr" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="image_en" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="image_ru" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="imageName_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="imageName_en" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="imageName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Languages">
     <Key>
@@ -94,6 +114,8 @@
     <Property Name="title_ru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="pdfFile_ru" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="imageFile_ru" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="categoryId" Type="Int32" />
+    <NavigationProperty Name="MagazineCategory" Relationship="BlueprintMediaServisModel.FK_MagazinesContent_MagazineCategory" FromRole="MagazinesContent" ToRole="MagazineCategory" />
   </EntityType>
   <Association Name="FK_MagazinesContent_Magazines">
     <End Type="BlueprintMediaServisModel.Magazines" Role="Magazines" Multiplicity="1" />
@@ -107,4 +129,77 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="MagazineCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MagazinesContent" Relationship="BlueprintMediaServisModel.FK_MagazinesContent_MagazineCategory" FromRole="MagazineCategory" ToRole="MagazinesContent" />
+  </EntityType>
+  <Association Name="FK_MagazinesContent_MagazineCategory">
+    <End Type="BlueprintMediaServisModel.MagazineCategory" Role="MagazineCategory" Multiplicity="0..1" />
+    <End Type="BlueprintMediaServisModel.MagazinesContent" Role="MagazinesContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MagazineCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MagazinesContent">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="slug" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="statu_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="name_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="adress_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fax_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="mail_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="city_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="country_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="statu_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="adress_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fax_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="mail_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="city_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="country_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="statu_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="name_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="adress_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fax_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="mail_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="city_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="country_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BoardMembers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="createTime" Type="DateTime" Precision="3" />
+    <Property Name="name_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="position_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image_tr" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="content_tr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="position_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image_en" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="content_en" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="position_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image_ru" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="content_ru" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="imageName_tr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="imageName_en" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="imageName_ru" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

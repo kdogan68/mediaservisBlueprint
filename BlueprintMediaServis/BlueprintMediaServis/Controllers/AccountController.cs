@@ -82,7 +82,8 @@ namespace BlueprintMediaServis.Controllers
             {
                 
                 Session["authenticationResult"] = true;
-                return (RedirectToAction("Index2", "Home"));
+                return (RedirectToAction("Index", "Home"));
+                
             }
             
             ModelState.AddModelError("", "Kullanıcı adı yada şifre yanlış.");

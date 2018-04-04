@@ -26,9 +26,12 @@
     <EntitySetMapping Name="Video">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Video">
         <MappingFragment StoreEntitySet="Video">
-          <ScalarProperty Name="embedcode" ColumnName="embedcode" />
-          <ScalarProperty Name="url" ColumnName="url" />
-          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="url_ru" ColumnName="url_ru" />
+          <ScalarProperty Name="embedcode_ru" ColumnName="embedcode_ru" />
+          <ScalarProperty Name="url_en" ColumnName="url_en" />
+          <ScalarProperty Name="embedcode_en" ColumnName="embedcode_en" />
+          <ScalarProperty Name="url_tr" ColumnName="url_tr" />
+          <ScalarProperty Name="embedcode_tr" ColumnName="embedcode_tr" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
@@ -37,9 +40,19 @@
     <EntitySetMapping Name="Menu">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.Menu">
         <MappingFragment StoreEntitySet="Menu">
-          <ScalarProperty Name="language" ColumnName="language" />
-          <ScalarProperty Name="content" ColumnName="content" />
-          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="imageName_ru" ColumnName="imageName_ru" />
+          <ScalarProperty Name="imageName_en" ColumnName="imageName_en" />
+          <ScalarProperty Name="imageName_tr" ColumnName="imageName_tr" />
+          <ScalarProperty Name="image_ru" ColumnName="image_ru" />
+          <ScalarProperty Name="image_en" ColumnName="image_en" />
+          <ScalarProperty Name="image_tr" ColumnName="image_tr" />
+          <ScalarProperty Name="slug" ColumnName="slug" />
+          <ScalarProperty Name="content_ru" ColumnName="content_ru" />
+          <ScalarProperty Name="name_ru" ColumnName="name_ru" />
+          <ScalarProperty Name="content_en" ColumnName="content_en" />
+          <ScalarProperty Name="name_en" ColumnName="name_en" />
+          <ScalarProperty Name="content_tr" ColumnName="content_tr" />
+          <ScalarProperty Name="name_tr" ColumnName="name_tr" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
@@ -66,6 +79,7 @@
     <EntitySetMapping Name="MagazinesContent">
       <EntityTypeMapping TypeName="BlueprintMediaServisModel.MagazinesContent">
         <MappingFragment StoreEntitySet="MagazinesContent">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
           <ScalarProperty Name="imageFile_ru" ColumnName="imageFile_ru" />
           <ScalarProperty Name="pdfFile_ru" ColumnName="pdfFile_ru" />
           <ScalarProperty Name="title_ru" ColumnName="title_ru" />
@@ -84,6 +98,69 @@
           <ScalarProperty Name="updateTime" ColumnName="updateTime" />
           <ScalarProperty Name="createTime" ColumnName="createTime" />
           <ScalarProperty Name="magazineId" ColumnName="magazineId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MagazineCategory">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.MagazineCategory">
+        <MappingFragment StoreEntitySet="MagazineCategory">
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contact">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="country_ru" ColumnName="country_ru" />
+          <ScalarProperty Name="city_ru" ColumnName="city_ru" />
+          <ScalarProperty Name="mail_ru" ColumnName="mail_ru" />
+          <ScalarProperty Name="fax_ru" ColumnName="fax_ru" />
+          <ScalarProperty Name="phone_ru" ColumnName="phone_ru" />
+          <ScalarProperty Name="adress_ru" ColumnName="adress_ru" />
+          <ScalarProperty Name="name_ru" ColumnName="name_ru" />
+          <ScalarProperty Name="statu_ru" ColumnName="statu_ru" />
+          <ScalarProperty Name="country_en" ColumnName="country_en" />
+          <ScalarProperty Name="city_en" ColumnName="city_en" />
+          <ScalarProperty Name="mail_en" ColumnName="mail_en" />
+          <ScalarProperty Name="fax_en" ColumnName="fax_en" />
+          <ScalarProperty Name="phone_en" ColumnName="phone_en" />
+          <ScalarProperty Name="adress_en" ColumnName="adress_en" />
+          <ScalarProperty Name="name_en" ColumnName="name_en" />
+          <ScalarProperty Name="statu_en" ColumnName="statu_en" />
+          <ScalarProperty Name="country_tr" ColumnName="country_tr" />
+          <ScalarProperty Name="city_tr" ColumnName="city_tr" />
+          <ScalarProperty Name="mail_tr" ColumnName="mail_tr" />
+          <ScalarProperty Name="fax_tr" ColumnName="fax_tr" />
+          <ScalarProperty Name="phone_tr" ColumnName="phone_tr" />
+          <ScalarProperty Name="adress_tr" ColumnName="adress_tr" />
+          <ScalarProperty Name="name_tr" ColumnName="name_tr" />
+          <ScalarProperty Name="statu_tr" ColumnName="statu_tr" />
+          <ScalarProperty Name="slug" ColumnName="slug" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BoardMembers">
+      <EntityTypeMapping TypeName="BlueprintMediaServisModel.BoardMembers">
+        <MappingFragment StoreEntitySet="BoardMembers">
+          <ScalarProperty Name="imageName_ru" ColumnName="imageName_ru" />
+          <ScalarProperty Name="imageName_en" ColumnName="imageName_en" />
+          <ScalarProperty Name="imageName_tr" ColumnName="imageName_tr" />
+          <ScalarProperty Name="content_ru" ColumnName="content_ru" />
+          <ScalarProperty Name="image_ru" ColumnName="image_ru" />
+          <ScalarProperty Name="position_ru" ColumnName="position_ru" />
+          <ScalarProperty Name="name_ru" ColumnName="name_ru" />
+          <ScalarProperty Name="content_en" ColumnName="content_en" />
+          <ScalarProperty Name="image_en" ColumnName="image_en" />
+          <ScalarProperty Name="position_en" ColumnName="position_en" />
+          <ScalarProperty Name="name_en" ColumnName="name_en" />
+          <ScalarProperty Name="content_tr" ColumnName="content_tr" />
+          <ScalarProperty Name="image_tr" ColumnName="image_tr" />
+          <ScalarProperty Name="position_tr" ColumnName="position_tr" />
+          <ScalarProperty Name="name_tr" ColumnName="name_tr" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

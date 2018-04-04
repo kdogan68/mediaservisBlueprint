@@ -41,6 +41,23 @@
 
                 <div class="card card-transparent">
                     <div class="card-header ">
+                        @if (ViewBag.Status != null)
+                        {                            
+                            if (ViewBag.Status.ToString().Equals("deleted"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Sayfa silindi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("itemNotFound"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Sayfa bulunamadı.
+                                </div>
+                            }
+                        }
                         <div class="card-title">
                             Sayfalar
                         </div>                        
@@ -60,9 +77,9 @@
                                         <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
                                             Comman Practice Followed
                                             -->
-                                        <th style="width:30%">Sayfa Adı</th>
-                                        <th style="width:30%">Dil</th>                                        
-                                        <th style="width:40%">Eylemler</th>
+                                        <th style="width:85%">Sayfa Adı</th>
+                                                                                
+                                        <th style="width:20%">Eylemler</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,10 +87,11 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td class="v-align-middle semi-bold">@item.name</td>
-                                            <td class="v-align-middle semi-bold">@item.language</td>
+                                            <td class="v-align-middle semi-bold">@item.name_tr</td>
+                                           
                                             <td class="v-align-middle semi-bold">
-                                               @Html.ActionLink("Aç", "Display", "MenuPage", new { id = item.id }, new { @class="btn btn-primary" })
+                                               @Html.ActionLink("Düzenle", "Display", "MenuPage", new { id = item.id }, new { @class="btn btn-primary" })
+                                               @Html.ActionLink("Sil", "DeletePage", "PagesList", new { id = item.id }, new { @class = "btn btn-danger" })
                                             </td>
                                         </tr>
                                     }
@@ -86,11 +104,3 @@
         </div>
     </div>
 </body>
-
-
-
-
-
-
-
-

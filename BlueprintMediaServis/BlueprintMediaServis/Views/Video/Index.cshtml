@@ -52,9 +52,34 @@
             <div class="content ">
                 <div class="card card-transparent">
                     <div class="card-header ">
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("noChange"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Lütfen url giriniz.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Video güncellendi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("error"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Lütfen geçerli bir url giriniz.
+                                </div>
+                            }
+                        }
                         <div class="card-title">
                             VİDEO
                         </div>
+                        <a href="#addVideoPopup" class="btn btn-primary  pull-right " data-toggle="modal">Yeni Video Ekle</a>
 
 
                         <div class="tools">
@@ -72,20 +97,21 @@
                                         <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user
                                         Comman Practice Followed
                                         -->
-                                        <th style="width:30%"></th>
+                                        <th style="width:30%">Türkçe</th>
+                                        <th style="width:30%">İngilizce</th>
+                                        <th style="width:30%">Rusça</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     <tr>
-                                        <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode"]" width="560" height="315" frameborder="0" allowfullscreen></iframe></td>
+                                        <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode_tr"]" width="300" height="300" frameborder="0" allowfullscreen></iframe></td>
+                                        <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode_en"]" width="300" height="300" frameborder="0" allowfullscreen></iframe></td>
+                                        <td class="v-align-middle semi-bold text-center"><iframe src="@ViewData["embedcode_ru"]" width="300" height="300" frameborder="0" allowfullscreen></iframe></td>
 
                                     </tr>
-                                    <tr>
-                                        <td class="v-align-middle semi-bold text-center"><a href="#addVideoPopup" class="btn btn-primary " data-toggle="modal">Yeni Video Ekle</a></td>
-                                    </tr>
-
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -112,19 +138,62 @@
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1" data-toggle="tab">Türkçe</a>
+                        </li>
+                        <li>
+                            <a href="#tab_2" data-toggle="tab">İngilizce</a>
+                        </li>
+                        <li>
+                            <a href="#tab_3" data-toggle="tab">Rusça</a>
+                        </li>
+                    </ul>
 
+                    <div class="tab-content">
 
-                    <div class="form-group">
-                        <div class="input-group col-xs-12 col-lg-offset-2 ">
+                        <div class="tab-pane fade active in" id="tab_1">
 
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                            @Html.TextBoxFor(model => Model.url, htmlAttributes: new { @class = "form-control input lg", @Name = "url" })
+                            <div class="form-group">
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(model => Model.url_tr, htmlAttributes: new { @class = "form-control input lg", @Name = "url_tr" })
+                                </div>
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+                                    Örneğin:https://www.youtube.com/watch?v=kNn_Br1IRX4
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-group col-xs-12 col-lg-offset-2 ">
-                          Örneğin:https://www.youtube.com/watch?v=kNn_Br1IRX4
+
+                        <div class="tab-pane fade" id="tab_2">
+
+                            <div class="form-group">
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(model => Model.url_en, htmlAttributes: new { @class = "form-control input lg", @Name = "url_en" })
+                                </div>
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+                                    Örneğin:https://www.youtube.com/watch?v=kNn_Br1IRX4
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab_3">
+
+                            <div class="form-group">
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.TextBoxFor(model => Model.url_ru, htmlAttributes: new { @class = "form-control input lg", @Name = "url_ru" })
+                                </div>
+                                <div class="input-group col-xs-12 col-lg-offset-2 ">
+                                    Örneğin:https://www.youtube.com/watch?v=kNn_Br1IRX4
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
 

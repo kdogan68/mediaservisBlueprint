@@ -180,15 +180,26 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BoardMembersApiController.cs" />
     <Compile Include="Controllers\CatalogApiController.cs" />
+    <Compile Include="Controllers\ContactApiController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ContactListController.cs" />
+    <Compile Include="Controllers\MagazineCategoriesController.cs" />
+    <Compile Include="Controllers\MagazineCategoryController.cs" />
     <Compile Include="Controllers\MagazinesApiController.cs" />
     <Compile Include="Controllers\MagazinesContentsApiController.cs" />
     <Compile Include="Controllers\MenuApiController.cs" />
     <Compile Include="Controllers\MenuPageController.cs" />
     <Compile Include="Controllers\PagesListController.cs" />
     <Compile Include="Controllers\UpdateCatalogController.cs" />
+    <Compile Include="Controllers\UpdateContactController.cs" />
+    <Compile Include="Controllers\UpdateMagazineCategoryController.cs" />
     <Compile Include="Controllers\UpdateMagazineController.cs" />
     <Compile Include="Controllers\UserAuthorize.cs" />
+    <Compile Include="Controllers\UpdateBoardMemberController.cs" />
+    <Compile Include="Controllers\BoardMembersController.cs" />
+    <Compile Include="Controllers\BoardMembersListController.cs" />
     <Compile Include="Controllers\VideoApiController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -201,11 +212,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BoardMembers.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Catalog.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Languages.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MagazineCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Magazines.cs">
@@ -345,6 +365,14 @@
     <Content Include="Views\MenuPage\Index.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLoginPage.cshtml" />
+    <Content Include="Views\MagazineCategory\Index.cshtml" />
+    <Content Include="Views\UpdateMagazineCategory\Index.cshtml" />
+    <Content Include="Views\BoardMembers\Index.cshtml" />
+    <Content Include="Views\BoardMembersList\Index.cshtml" />
+    <Content Include="Views\UpdateBoardMember\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\ContactList\Index.cshtml" />
+    <Content Include="Views\UpdateContact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

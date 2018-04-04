@@ -1,0 +1,252 @@
+﻿@model Tuple<BlueprintMediaServis.Models.BoardMembers, IEnumerable<BlueprintMediaServis.Models.BoardMembers>>
+
+@{
+    ViewBag.Title = "UpdateBoardMember";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <!-- include summernote css/js -->
+    <link href="~/dist/summernote.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Pages - Admin Dashboard UI Kit - Blank Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+    <link rel="Stylesheet" type="text/css" href="~/blueprintmediaservis.css">
+</head>
+
+<body class="fixed-header">
+    <div class="page-container">
+        <div class="page-content-wrapper ">
+            <div class="content ">
+                @using (Html.BeginForm("Update", "UpdateBoardMember", FormMethod.Post, new { enctype = "multipart/form-data", }))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => Model.Item2.First().id)
+                    <div class="card card-transparent">
+
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("failed"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>İşlem gerçekleştirilirken bir hata oluştu.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Yönetici bilgisi güncellendi.
+                                </div>
+                            }                            
+                        }
+
+                        <div class="card-block">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1" data-toggle="tab">Türkçe</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_2" data-toggle="tab">İngilizce</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_3" data-toggle="tab">Rusça</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="tab_1">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ad Soyad</label>
+                                                 
+                                                        @Html.TextBoxFor(model => Model.Item1.name_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_tr", @Value = Model.Item2.First().name_tr })
+                                                   
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Pozisyon</label>
+                                               
+                                                        @Html.TextBoxFor(model => Model.Item1.position_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "position_tr", @Value = Model.Item2.First().position_tr })
+                                                    
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="file" id="image_tr7" name="image_tr7" class="file">
+                                            <div class="form-group form-group-default required">
+                                                <label>Resim</label>
+                                                @Html.TextBoxFor(Model => Model.Item1.imageName_tr, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "imageName_tr", @Id = "imageName_tr", @Value = Model.Item2.First().imageName_tr })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.content_tr, htmlAttributes: new { @class = "summernote", @Name = "content_tr", @id = "summernote_tr" })
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_2">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ad Soyad</label>
+                                                
+                                                        @Html.TextBoxFor(model => Model.Item1.name_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_en", @Value = Model.Item2.First().name_en })
+                                                    
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Pozisyon</label>
+                                              
+                                                        @Html.TextBoxFor(model => Model.Item1.position_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "position_en", @Value = Model.Item2.First().position_en })
+                                                    
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="file" id="image_en7" name="image_en7" class="file">
+                                            <div class="form-group form-group-default required">
+                                                <label>Resim</label>
+                                                @Html.TextBoxFor(Model => Model.Item1.imageName_en, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "imageName_en", @Id = "imageName_en", @Value = Model.Item2.First().imageName_en })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.content_en, htmlAttributes: new { @class = "summernote", @Name = "content_en", @id = "summernote_en" })
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_3">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Ad Soyad</label>
+                                               
+                                                        @Html.TextBoxFor(model => Model.Item1.name_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "name_ru", @Value = Model.Item2.First().name_ru })
+                                                  
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default required">
+                                                <label>Pozisyon</label>
+                                               
+                                                        @Html.TextBoxFor(model => Model.Item1.position_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "position_ru", @Value = Model.Item2.First().position_ru })
+                                                   
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="file" id="image_ru7" name="image_ru7" class="file">
+                                            <div class="form-group form-group-default required">
+                                                <label>Resim</label>
+                                                @Html.TextBoxFor(Model => Model.Item1.imageName_ru, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "imageName_ru", @Id = "imageName_ru", @Value = Model.Item2.First().imageName_ru })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="input-group-btn">
+                                                <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-folder-open"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.TextAreaFor(model => Model.Item1.content_ru, htmlAttributes: new { @class = "summernote", @Name = "content_ru", @id = "summernote_ru" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <button type="submit" class="btn btn-complete">Kaydet</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).on('click', '.browse', function () {
+            var file = $(this).parent().parent().parent().find('.file');
+            file.trigger('click');
+        });
+        $(document).on('change', '.file', function () {
+            $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+        });
+
+        $(document).ready(function () {
+            $('#tabs').tabs();
+        });
+
+        $(document).ready(function () {
+            $('#summernote_tr').summernote({
+                tabsize: 2,
+                height: 400
+            });
+            $('#summernote_en').summernote({
+                tabsize: 2,
+                height: 400
+            });
+            $('#summernote_ru').summernote({
+                tabsize: 2,
+                height: 400
+            });
+        });
+
+        function SetPageAttributes()
+        {
+            var textAreaValue_tr = @Html.Raw(Json.Encode(Model.Item2.First().content_tr));
+            var textAreaValue_en = @Html.Raw(Json.Encode(Model.Item2.First().content_en));
+            var textAreaValue_ru = @Html.Raw(Json.Encode(Model.Item2.First().content_ru));
+
+            $('#summernote_tr').summernote('code', textAreaValue_tr);
+            $('#summernote_en').summernote('code', textAreaValue_en);
+            $('#summernote_ru').summernote('code', textAreaValue_ru);
+        }
+        window.onload = SetPageAttributes;
+    </script>
+</body>

@@ -1,0 +1,88 @@
+﻿@model Tuple<BlueprintMediaServis.Models.MagazineCategory, IEnumerable<BlueprintMediaServis.Models.MagazineCategory>>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+function SetPageAttributes()
+    {
+        var text = @Html.Raw(Json.Encode(Model.Item2.First().text));
+        $("#text").val(text);       
+        }
+    window.onload = SetPageAttributes;
+</script>
+
+<head>
+   
+
+
+</head>
+<body class="fixed-header">
+    <div class="page-container container-fixed-lg">
+        <div class="page-content-wrapper ">
+            <!-- START PAGE CONTENT -->
+            <div class="content ">
+
+                @using (Html.BeginForm("Update", "UpdateMagazineCategory", FormMethod.Post, new { enctype = "multipart/form-data", }))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => Model.Item2.First().id)
+
+                    <div class="card card-transparent">
+
+                        @if (ViewBag.Status != null)
+                        {
+                            if (ViewBag.Status.ToString().Equals("success"))
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>İşlem Başarılı: </strong>Kategori güncellendi.
+                                </div>
+                            }
+                            else if (ViewBag.Status.ToString().Equals("noChange"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Değişiklik yapmadınız.
+                                </div>
+                            }
+
+                            else if (ViewBag.Status.ToString().Equals("failed"))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <strong>Uyarı: </strong>Daha önceden bu isimle bir kategori oluşturulmuş.
+                                </div>
+                            }
+                        }
+                        <div class="card-block">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default required">
+                                        <label>Kategori Adı</label>
+                                        @Html.TextBoxFor(model => Model.Item1.text, htmlAttributes: new { @style = "width: 100%; max-width: 100%;", @class = "form-control input lg", @Name = "text", @id = "text" })
+                                    </div>
+                                    @Html.ActionLink("Kapat", "Index", "MagazineCategory", new object { }, new { @class = "btn btn-secondary" })
+                                    <button type="submit" class="btn btn-complete">Kaydet</button>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+

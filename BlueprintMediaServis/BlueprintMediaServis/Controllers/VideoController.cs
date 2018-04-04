@@ -21,8 +21,12 @@ namespace BlueprintMediaServis.Controllers
         {
             if (RetrieveSingle() != null)
             {
-                ViewData["embedcode"] = RetrieveSingle();
+                ViewData["embedcode_tr"] = RetrieveSingle().embedcode_tr;
+                ViewData["embedcode_en"] = RetrieveSingle().embedcode_en;
+                ViewData["embedcode_ru"] = RetrieveSingle().embedcode_ru;
             }
+            ViewBag.Status = Session["status"];
+            Session["status"] = null;
 
 
             return View();
@@ -32,19 +36,40 @@ namespace BlueprintMediaServis.Controllers
         [HttpPost]
         public ActionResult Insert(Video videoEntity)
         {
-            string embedYoutubeUrl = YoutubeURLConverter(videoEntity.url);
-            BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
-            videoEntity.embedcode = embedYoutubeUrl;
-            videoEntity.createTime = DateTime.Now;
+            if (videoEntity.url_tr != null && videoEntity.url_en != null && videoEntity.url_ru != null)
+            {
+                
+                string embedYoutubeUrlTr = YoutubeURLConverter(videoEntity.url_tr);
+                string embedYoutubeUrlEn = YoutubeURLConverter(videoEntity.url_en);
+                string embedYoutubeUrlRu = YoutubeURLConverter(videoEntity.url_ru);
 
-            entities.Video.Add(videoEntity);
-            entities.SaveChanges();
+                if (embedYoutubeUrlTr != "" && embedYoutubeUrlEn != "" && embedYoutubeUrlRu != "")
+                {
+                    BlueprintMediaServisEntity entities = new BlueprintMediaServisEntity();
+                    videoEntity.embedcode_tr = embedYoutubeUrlTr;
+                    videoEntity.embedcode_en = embedYoutubeUrlEn;
+                    videoEntity.embedcode_ru = embedYoutubeUrlRu;
+                    videoEntity.createTime = DateTime.Now;
 
+                    entities.Video.Add(videoEntity);
+                    entities.SaveChanges();
+                    Session["status"] = "success";
+                }
+                else
+                {
+                    Session["status"] = "error";
+                }
+                
+            }
+            else
+            {
+                Session["status"] = "noChange";
+            }
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index");
         }
 
-        public string RetrieveSingle()
+        public Video RetrieveSingle()
         {
             BlueprintMediaServisEntity entity = new BlueprintMediaServisEntity();
             var query = entity.Video.ToList();
@@ -53,7 +78,7 @@ namespace BlueprintMediaServis.Controllers
 
             if(result != null)
             {
-                return result.embedcode;
+                return result;
             }
 
             return null;
